@@ -9,18 +9,43 @@
 			"include": "#strings"
 		},
 		{
+			"include": "#strings-single"
+		},
+		{
 			"include": "#comments"
 		},
 		{
 			"include": "#blockcomments"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#operators"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword",
-					"match": "\\b(SQL|CLASS|AND|NOT|OR|CALL|IF|THEN|ELSEIF|ELSE|ENDIF|BEGIN|END|EXIT|FUNCTION|RETURN|END FUNCTION|FOR|TO|STEP|NEXT|ENDFOR|END FOR|INPUT|SET|PRINT|OUTPUT|DISPLAY|REPEAT|UNTIL|ENDWHILE|WHILE|GET|POST|FETCH|READ|WRITE|QUERY|CALCULATE|RUN|EXECUTE)\\b"
+					"name": "keyword.control.dscode",
+					"match": "\\b(IF|THEN|ELSEIF|ELSE|ENDIF|FOR|TO|STEP|NEXT|ENDFOR|END FOR|WHILE|ENDWHILE|REPEAT|UNTIL|BEGIN|END)\\b"
+				},
+				{
+					"name": "keyword.function.dscode",
+					"match": "\\b(FUNCTION|RETURN|END FUNCTION|CALL|EXIT)\\b"
+				},
+				{
+					"name": "keyword.io.dscode",
+					"match": "\\b(INPUT|OUTPUT|PRINT|DISPLAY|READ|WRITE)\\b"
+				},
+				{
+					"name": "keyword.operator.logical.dscode",
+					"match": "\\b(AND|OR|NOT)\\b"
+				},
+				{
+					"name": "keyword.other.dscode",
+					"match": "\\b(SET|GET|POST|FETCH|QUERY|CALCULATE|SQL|CLASS|RUN|EXECUTE)\\b"
 				}
 			]
 		},
@@ -44,6 +69,41 @@
 			"name": "comment.block.dscode",
 			"begin": "\/\\*",
 			"end": "\\*\/"
+		},
+		"strings-single": {
+			"name": "string.quoted.single.dscode",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.dscode",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.float.dscode",
+					"match": "\\b\\d+\\.\\d+\\b"
+				},
+				{
+					"name": "constant.numeric.integer.dscode",
+					"match": "\\b\\d+\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.comparison.dscode",
+					"match": "<=|>=|<>|<|>|="
+				},
+				{
+					"name": "keyword.operator.arithmetic.dscode",
+					"match": "[+\\-*/]"
+				}
+			]
 		}
 	},
 	"scopeName": "source.dscode"
