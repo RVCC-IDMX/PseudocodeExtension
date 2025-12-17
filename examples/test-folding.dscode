@@ -1,0 +1,47 @@
+// Test file for Phase 5: Language Configuration
+// Test folding and auto-indent
+
+// Test 1: BEGIN/END folding
+BEGIN
+    SET x = 10
+    SET y = 20
+END
+
+// Test 2: IF/ENDIF folding with auto-indent
+IF x > 5 THEN
+    OUTPUT "x is greater than 5"
+    IF y > 10 THEN
+        OUTPUT "y is also greater than 10"
+    ENDIF
+ENDIF
+
+// Test 3: FOR loop folding
+FOR i = 1 TO 10 STEP 1
+    DISPLAY i
+NEXT i
+
+// Test 4: WHILE loop folding
+WHILE count < 100
+    SET count = count + 1
+ENDWHILE
+
+// Test 5: REPEAT/UNTIL folding
+REPEAT
+    INPUT value
+UNTIL value = 0
+
+// Test 6: FUNCTION folding
+FUNCTION calculateSum (a, b)
+BEGIN
+    SET result = a + b
+    RETURN result
+END
+
+// Test 7: Nested structures
+IF condition1 THEN
+    FOR j = 1 TO 5 STEP 1
+        WHILE running
+            DISPLAY "nested"
+        ENDWHILE
+    NEXT j
+ENDIF
