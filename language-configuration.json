@@ -29,8 +29,14 @@
     ],
     "onEnterRules": [
         {
-          "beforeText": "^\\s*(?:BEGIN|CLASS|FOR|IF|ELSEIF|ELSE|WHILE|REPEAT).*?:\\s*$",
+          "beforeText": "^\\s*(BEGIN|IF\\s+.*\\s+THEN|ELSEIF\\s+.*\\s+THEN|ELSE|FOR\\s+.*|WHILE\\s+.*|REPEAT|FUNCTION\\s+.*)\\s*$",
           "action": { "indent": "indent" }
         }
-      ]
+    ],
+    "folding": {
+        "markers": {
+            "start": "^\\s*(BEGIN|IF|FOR|WHILE|REPEAT|FUNCTION)\\b",
+            "end": "^\\s*(END|ENDIF|ENDFOR|END FOR|ENDWHILE|UNTIL|END FUNCTION)\\b"
+        }
+    }
 }
