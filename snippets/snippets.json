@@ -1,37 +1,37 @@
 {
     "WHILE PRE":{
         "prefix": ["WHILE", "WHI"],
-        "body": ["WHILE ${1:condition}","\t","ENDWHILE"],
+        "body": ["WHILE ${1:condition}","\t$0","ENDWHILE"],
         "description":"Pre-tested while loop."
     },
     "FOR LOOP": {
         "prefix": ["FOR"],
-        "body": ["FOR ${1:variable} = ${2:start} TO ${3:end} STEP ${4:step}", "\t", "\tNEXT ${1:variable}","END FOR"],
-        "description": "A for loop."
-    },    
+        "body": ["FOR ${1:variable} = ${2:start} TO ${3:end} STEP ${4:1}", "\t$0", "NEXT ${1:variable}"],
+        "description": "Counted loop with step increment."
+    },
     "WHILE POST":{
         "prefix": ["REPEAT", "REP"],
-        "body": ["REPEAT","\t","UNTIL ${1:condition}"],
-        "description":"Pre-tested while loop."
+        "body": ["REPEAT","\t$0","UNTIL ${1:condition}"],
+        "description":"Post-tested loop (executes at least once)."
     },
     "IF":{
         "prefix": ["IF"],
-        "body": ["IF ${1:condition} THEN","\t","ENDIF"],
-        "description":"Pre-tested while loop."
+        "body": ["IF ${1:condition} THEN","\t$0","ENDIF"],
+        "description":"Conditional statement."
     },
     "BEGIN":{
         "prefix": ["BEG", "BEGIN"],
-        "body": ["BEGIN","\t","END"],
-        "description":"Begin-End"    
+        "body": ["BEGIN","\t$0","END"],
+        "description":"Begin-End block."
     },
     "FUNCTION":{
         "prefix": ["FUN", "FUNCTION"],
-        "body": ["FUNCTION ${1:functionName} (${2:parameters})","BEGIN","\t","END"],
-        "description":"Function"    
+        "body": ["FUNCTION ${1:functionName} (${2:parameters})","BEGIN","\t$0","END"],
+        "description":"Function definition."
     },
     "RETURN": {
         "prefix": ["RET", "RETURN"],
-        "body": ["RETURN ${1:functionName}"],
-        "description":"Return"  
+        "body": ["RETURN ${1:value}"],
+        "description":"Return a value from function."
     }
-  }
+}
