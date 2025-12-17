@@ -33,5 +33,55 @@
         "prefix": ["RET", "RETURN"],
         "body": ["RETURN ${1:value}"],
         "description":"Return a value from function."
+    },
+    "ELSEIF": {
+        "prefix": ["ELSEIF", "ELS"],
+        "body": ["ELSEIF ${1:condition} THEN", "\t$0"],
+        "description": "Additional condition branch."
+    },
+    "ELSE": {
+        "prefix": ["ELSE"],
+        "body": ["ELSE", "\t$0"],
+        "description": "Default branch."
+    },
+    "IF-ELSE": {
+        "prefix": ["IFE"],
+        "body": ["IF ${1:condition} THEN", "\t$2", "ELSE", "\t$0", "ENDIF"],
+        "description": "Conditional with else branch."
+    },
+    "CLASS": {
+        "prefix": ["CLASS", "CLA"],
+        "body": ["CLASS ${1:className}", "BEGIN", "\t$0", "END"],
+        "description": "Class definition."
+    },
+    "INPUT": {
+        "prefix": ["INP", "INPUT"],
+        "body": ["INPUT ${1:variable}"],
+        "description": "Read input into variable."
+    },
+    "OUTPUT": {
+        "prefix": ["OUT", "OUTPUT"],
+        "body": ["OUTPUT ${1:expression}"],
+        "description": "Write output."
+    },
+    "DISPLAY": {
+        "prefix": ["DIS", "DISPLAY"],
+        "body": ["DISPLAY ${1:expression}"],
+        "description": "Display output."
+    },
+    "SET": {
+        "prefix": ["SET"],
+        "body": ["SET ${1:variable} = ${2:value}"],
+        "description": "Assign value to variable."
+    },
+    "CALL": {
+        "prefix": ["CALL"],
+        "body": ["CALL ${1:functionName}(${2:arguments})"],
+        "description": "Call a function."
+    },
+    "SQL": {
+        "prefix": ["SQL"],
+        "body": ["SQL \"${1:query}\""],
+        "description": "SQL query statement."
     }
 }
