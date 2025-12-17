@@ -20,25 +20,30 @@
 			"patterns": [
 				{
 					"name": "keyword",
-					"match": "\\b(SQL|CLASS|AND|NOT|OR|CALL|IF|THEN|ELSEIF|ELSE|ENDIF|BEGIN|END|EXIT|FUNCTION|RETURN|END FUNCTION|FOR|TO|STEP|NEXT|ENDFOR|END FOR|INPUT|SET|PRINT|OUTPUT|DISPLAY|REPEAT|UNTIL|ENDWHILE|WHILE|GET|POST|FETCH|READ|WRITE|QUERY|CALCULATE)\\b"
+					"match": "\\b(SQL|CLASS|AND|NOT|OR|CALL|IF|THEN|ELSEIF|ELSE|ENDIF|BEGIN|END|EXIT|FUNCTION|RETURN|END FUNCTION|FOR|TO|STEP|NEXT|ENDFOR|END FOR|INPUT|SET|PRINT|OUTPUT|DISPLAY|REPEAT|UNTIL|ENDWHILE|WHILE|GET|POST|FETCH|READ|WRITE|QUERY|CALCULATE|RUN|EXECUTE)\\b"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.",
+			"name": "string.quoted.double.dscode",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.",
+					"name": "constant.character.escape.dscode",
 					"match": "\\\\."
 				}
 			]
 		},
 		"comments": {
-			"name": "comment",
+			"name": "comment.line.double-slash.dscode",
 			"begin": "\/\/",
 			"end": "\n"
+		},
+		"blockcomments": {
+			"name": "comment.block.dscode",
+			"begin": "\/\\*",
+			"end": "\\*\/"
 		}
 	},
 	"scopeName": "source.dscode"
