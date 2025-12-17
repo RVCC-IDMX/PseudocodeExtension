@@ -9,9 +9,14 @@ This project is a fork of [DigitalSolutionsPseudocodeExtension](https://github.c
 ## Features
 
 - Syntax highlighting for pseudocode keywords
+- Semantic highlighting for different keyword categories (control flow, functions, I/O, operators)
+- Number highlighting (integers and floats)
+- Operator highlighting (comparison and arithmetic)
 - Code snippets for common constructs (IF, FOR, WHILE, FUNCTION, etc.)
 - Auto-closing brackets and quotes
 - Comment support (single-line `//` and block `/* */`)
+- Code folding for block structures
+- Auto-indentation
 
 ## Usage
 
@@ -53,9 +58,19 @@ Type the following prefixes and press Tab to insert snippets:
 | `FOR` | FOR loop |
 | `REPEAT` or `REP` | REPEAT-UNTIL loop |
 | `IF` | IF statement |
+| `IFE` | IF-ELSE statement |
+| `ELSEIF` or `ELS` | ELSEIF branch |
+| `ELSE` | ELSE branch |
 | `BEGIN` or `BEG` | BEGIN-END block |
 | `FUNCTION` or `FUN` | Function definition |
 | `RETURN` or `RET` | Return statement |
+| `CLASS` or `CLA` | Class definition |
+| `INPUT` or `INP` | Input statement |
+| `OUTPUT` or `OUT` | Output statement |
+| `DISPLAY` or `DIS` | Display statement |
+| `SET` | Variable assignment |
+| `CALL` | Function call |
+| `SQL` | SQL query |
 
 ## Examples
 
