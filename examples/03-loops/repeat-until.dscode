@@ -1,0 +1,92 @@
+// ================================================
+// Topic: REPEAT-UNTIL Loop
+// File: repeat-until.dscode
+// ================================================
+// Learning objectives:
+// - REPEAT/UNTIL structure
+// - Post-test behavior (always runs once)
+// - When to use REPEAT vs WHILE
+// ================================================
+
+// REPEAT-UNTIL loop (post-tested)
+// Checks condition AFTER each iteration
+// Always executes at least once
+
+BEGIN
+    // Example 1: Password entry
+    // Must ask at least once, so REPEAT is perfect
+    SET password = ""
+    SET correctPassword = "secret123"
+
+    REPEAT
+        DISPLAY "Enter password:"
+        INPUT password
+
+        IF password <> correctPassword THEN
+            DISPLAY "Incorrect, try again"
+        ENDIF
+    UNTIL password = correctPassword
+
+    DISPLAY "Access granted!"
+
+    // Example 2: Menu-driven program
+    SET choice = 0
+
+    REPEAT
+        DISPLAY "===== MENU ====="
+        DISPLAY "1. Say Hello"
+        DISPLAY "2. Show Date"
+        DISPLAY "3. Exit"
+        DISPLAY "Enter choice:"
+        INPUT choice
+
+        IF choice = 1 THEN
+            DISPLAY "Hello, User!"
+        ELSEIF choice = 2 THEN
+            DISPLAY "Today's date is displayed here"
+        ELSEIF choice = 3 THEN
+            DISPLAY "Goodbye!"
+        ELSE
+            DISPLAY "Invalid choice"
+        ENDIF
+    UNTIL choice = 3
+
+    // Example 3: Number guessing game
+    SET secretNumber = 42
+    SET guess = 0
+    SET attempts = 0
+
+    DISPLAY "Guess the number (1-100):"
+
+    REPEAT
+        INPUT guess
+        SET attempts = attempts + 1
+
+        IF guess < secretNumber THEN
+            DISPLAY "Too low! Try again:"
+        ELSEIF guess > secretNumber THEN
+            DISPLAY "Too high! Try again:"
+        ENDIF
+    UNTIL guess = secretNumber
+
+    DISPLAY "Correct! You got it in " + attempts + " attempts"
+
+    // Example 4: Input validation
+    SET age = 0
+
+    REPEAT
+        DISPLAY "Enter your age (must be positive):"
+        INPUT age
+    UNTIL age > 0
+
+    DISPLAY "Your age is: " + age
+
+    // Key difference: REPEAT vs WHILE
+    // WHILE checks BEFORE - might run 0 times
+    // REPEAT checks AFTER - always runs at least 1 time
+
+    // Use REPEAT when you need to:
+    // - Get user input at least once
+    // - Display a menu at least once
+    // - Process data at least once before checking
+END

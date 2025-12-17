@@ -1,0 +1,211 @@
+// ================================================
+// Topic: Calculator Program
+// File: calculator.dscode
+// ================================================
+// Learning objectives:
+// - Program structure
+// - Multiple functions
+// - Menu-driven programs
+// - Combining all concepts
+// ================================================
+
+// Simple Calculator Program
+// Demonstrates functions, loops, and user input
+
+// ----------------------------------------
+// Calculator Functions
+// ----------------------------------------
+
+FUNCTION add (a, b)
+BEGIN
+    RETURN a + b
+END
+
+FUNCTION subtract (a, b)
+BEGIN
+    RETURN a - b
+END
+
+FUNCTION multiply (a, b)
+BEGIN
+    RETURN a * b
+END
+
+FUNCTION divide (a, b)
+BEGIN
+    IF b = 0 THEN
+        DISPLAY "Error: Cannot divide by zero"
+        RETURN 0
+    ELSE
+        RETURN a / b
+    ENDIF
+END
+
+FUNCTION power (base, exponent)
+BEGIN
+    SET result = 1
+    FOR i = 1 TO exponent STEP 1
+        SET result = result * base
+    NEXT i
+    RETURN result
+END
+
+FUNCTION modulo (a, b)
+BEGIN
+    IF b = 0 THEN
+        DISPLAY "Error: Cannot divide by zero"
+        RETURN 0
+    ELSE
+        SET quotient = a / b
+        SET remainder = a - (quotient * b)
+        RETURN remainder
+    ENDIF
+END
+
+// ----------------------------------------
+// Display Functions
+// ----------------------------------------
+
+FUNCTION displayHeader ()
+BEGIN
+    DISPLAY ""
+    DISPLAY "╔════════════════════════════════╗"
+    DISPLAY "║      SIMPLE CALCULATOR         ║"
+    DISPLAY "╚════════════════════════════════╝"
+    DISPLAY ""
+END
+
+FUNCTION displayMenu ()
+BEGIN
+    DISPLAY "┌────────────────────────────────┐"
+    DISPLAY "│          OPERATIONS            │"
+    DISPLAY "├────────────────────────────────┤"
+    DISPLAY "│  1. Addition (+)               │"
+    DISPLAY "│  2. Subtraction (-)            │"
+    DISPLAY "│  3. Multiplication (×)         │"
+    DISPLAY "│  4. Division (÷)               │"
+    DISPLAY "│  5. Power (^)                  │"
+    DISPLAY "│  6. Modulo (%)                 │"
+    DISPLAY "│  7. Exit                       │"
+    DISPLAY "└────────────────────────────────┘"
+    DISPLAY ""
+END
+
+FUNCTION displayResult (operation, num1, num2, result)
+BEGIN
+    DISPLAY ""
+    DISPLAY "┌────────────────────────────────┐"
+    DISPLAY "│            RESULT              │"
+    DISPLAY "├────────────────────────────────┤"
+    DISPLAY "│  " + num1 + " " + operation + " " + num2 + " = " + result
+    DISPLAY "└────────────────────────────────┘"
+    DISPLAY ""
+END
+
+// ----------------------------------------
+// Input Functions
+// ----------------------------------------
+
+FUNCTION getNumber (prompt)
+BEGIN
+    DISPLAY prompt
+    INPUT value
+    RETURN value
+END
+
+FUNCTION getValidChoice ()
+BEGIN
+    SET valid = false
+    SET choice = 0
+
+    WHILE valid = false
+        DISPLAY "Enter your choice (1-7):"
+        INPUT choice
+
+        IF choice >= 1 AND choice <= 7 THEN
+            SET valid = true
+        ELSE
+            DISPLAY "Invalid choice. Please enter 1-7."
+        ENDIF
+    ENDWHILE
+
+    RETURN choice
+END
+
+// ----------------------------------------
+// Main Program
+// ----------------------------------------
+
+BEGIN
+    CALL displayHeader()
+
+    SET running = true
+    SET calculationCount = 0
+
+    WHILE running = true
+        CALL displayMenu()
+
+        SET choice = CALL getValidChoice()
+
+        IF choice <> 7 THEN
+            // Get two numbers for calculation
+            SET num1 = CALL getNumber("Enter first number:")
+            SET num2 = CALL getNumber("Enter second number:")
+
+            SET result = 0
+            SET operationSymbol = ""
+
+            // Perform the selected operation
+            IF choice = 1 THEN
+                SET result = CALL add(num1, num2)
+                SET operationSymbol = "+"
+
+            ELSEIF choice = 2 THEN
+                SET result = CALL subtract(num1, num2)
+                SET operationSymbol = "-"
+
+            ELSEIF choice = 3 THEN
+                SET result = CALL multiply(num1, num2)
+                SET operationSymbol = "×"
+
+            ELSEIF choice = 4 THEN
+                SET result = CALL divide(num1, num2)
+                SET operationSymbol = "÷"
+
+            ELSEIF choice = 5 THEN
+                SET result = CALL power(num1, num2)
+                SET operationSymbol = "^"
+
+            ELSEIF choice = 6 THEN
+                SET result = CALL modulo(num1, num2)
+                SET operationSymbol = "%"
+
+            ENDIF
+
+            // Display the result
+            CALL displayResult(operationSymbol, num1, num2, result)
+
+            SET calculationCount = calculationCount + 1
+
+            // Ask if user wants to continue
+            DISPLAY "Press Enter to continue..."
+            INPUT continue
+
+        ELSE
+            // Exit chosen
+            SET running = false
+        ENDIF
+
+    ENDWHILE
+
+    // Goodbye message
+    DISPLAY ""
+    DISPLAY "╔════════════════════════════════╗"
+    DISPLAY "║         GOODBYE!               ║"
+    DISPLAY "╠════════════════════════════════╣"
+    DISPLAY "║  Calculations performed: " + calculationCount
+    DISPLAY "║  Thank you for using the       ║"
+    DISPLAY "║  calculator!                   ║"
+    DISPLAY "╚════════════════════════════════╝"
+    DISPLAY ""
+END

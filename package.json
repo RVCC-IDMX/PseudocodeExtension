@@ -1,9 +1,13 @@
 {
-    "name": "digital-solutions-pseudocode",
-    "displayName": "Digital Solutions Pseudocode",
-    "description": "Language extension for QCAA Digital Solutions Psuedocode",
+    "name": "pseudocode",
+    "displayName": "Pseudocode",
+    "description": "Language extension for Psuedocode (original author Andrew Tacon)",
     "version": "0.0.1",
-    "publisher": "Andrew Tacon",
+    "publisher": "Cynthia Teeters",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/RVCC-IDMX/PseudocodeExtension"
+    },
     "engines": {
         "vscode": "^1.63.0"
     },
@@ -11,29 +15,30 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "dscode",
-            "aliases": ["Digital Solutions Pseudocode"],
-            "extensions": [".dscode"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "dscode",
-            "scopeName": "source.dscode",
-            "path": "./syntaxes/.tmLanguage.json"
-        }],
+        "languages": [
+            {
+                "id": "dscode",
+                "aliases": [
+                    "Pseudocode"
+                ],
+                "extensions": [
+                    ".dscode"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "dscode",
+                "scopeName": "source.dscode",
+                "path": "./syntaxes/.tmLanguage.json"
+            }
+        ],
         "snippets": [
             {
                 "language": "dscode",
                 "path": "./snippets/snippets.json"
             }
-        ],
-        "themes": [
-            {
-                "label": "dscodecolortheme",
-                "uiTheme": "vs",
-                "path": "./themes/dscodecolortheme-color-theme.json"
-            }
         ]
-    }    
+    }
 }

@@ -1,0 +1,157 @@
+// ================================================
+// Topic: Functions with Return Values
+// File: function-return.dscode
+// ================================================
+// Learning objectives:
+// - RETURN keyword
+// - Using returned values
+// - Functions in expressions
+// ================================================
+
+// Functions with return values
+// Send data back from functions
+
+// Simple return
+FUNCTION square (number)
+BEGIN
+    SET result = number * number
+    RETURN result
+END
+
+// Calculate area and return it
+FUNCTION calculateArea (width, height)
+BEGIN
+    SET area = width * height
+    RETURN area
+END
+
+// Return based on condition
+FUNCTION getMax (a, b)
+BEGIN
+    IF a > b THEN
+        RETURN a
+    ELSE
+        RETURN b
+    ENDIF
+END
+
+// Return based on condition
+FUNCTION getMin (a, b)
+BEGIN
+    IF a < b THEN
+        RETURN a
+    ELSE
+        RETURN b
+    ENDIF
+END
+
+// Check if even - returns boolean
+FUNCTION isEven (number)
+BEGIN
+    SET remainder = number - (number / 2) * 2
+    IF remainder = 0 THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+END
+
+// Calculate factorial
+FUNCTION factorial (n)
+BEGIN
+    SET result = 1
+    FOR i = 1 TO n STEP 1
+        SET result = result * i
+    NEXT i
+    RETURN result
+END
+
+// Convert Celsius to Fahrenheit
+FUNCTION celsiusToFahrenheit (celsius)
+BEGIN
+    SET fahrenheit = (celsius * 9 / 5) + 32
+    RETURN fahrenheit
+END
+
+// Calculate percentage
+FUNCTION calculatePercentage (part, whole)
+BEGIN
+    SET percentage = (part / whole) * 100
+    RETURN percentage
+END
+
+// ================================================
+// Main program
+// ================================================
+
+BEGIN
+    // Store returned values in variables
+    SET squareOf5 = CALL square(5)
+    DISPLAY "5 squared = " + squareOf5
+
+    SET squareOf7 = CALL square(7)
+    DISPLAY "7 squared = " + squareOf7
+
+    // Use returned value directly in display
+    DISPLAY "10 squared = " + CALL square(10)
+
+    DISPLAY "---"
+
+    // Calculate areas
+    SET roomArea = CALL calculateArea(10, 15)
+    DISPLAY "Room area: " + roomArea + " sq ft"
+
+    SET gardenArea = CALL calculateArea(8, 12)
+    DISPLAY "Garden area: " + gardenArea + " sq ft"
+
+    DISPLAY "---"
+
+    // Find maximum and minimum
+    SET larger = CALL getMax(25, 18)
+    DISPLAY "Larger of 25 and 18: " + larger
+
+    SET smaller = CALL getMin(25, 18)
+    DISPLAY "Smaller of 25 and 18: " + smaller
+
+    DISPLAY "---"
+
+    // Use boolean return
+    IF CALL isEven(8) THEN
+        DISPLAY "8 is even"
+    ELSE
+        DISPLAY "8 is odd"
+    ENDIF
+
+    IF CALL isEven(7) THEN
+        DISPLAY "7 is even"
+    ELSE
+        DISPLAY "7 is odd"
+    ENDIF
+
+    DISPLAY "---"
+
+    // Factorial
+    DISPLAY "5! = " + CALL factorial(5)
+    DISPLAY "6! = " + CALL factorial(6)
+
+    DISPLAY "---"
+
+    // Temperature conversion
+    SET tempC = 25
+    SET tempF = CALL celsiusToFahrenheit(tempC)
+    DISPLAY tempC + " Celsius = " + tempF + " Fahrenheit"
+
+    DISPLAY "---"
+
+    // Calculate grade percentage
+    SET earned = 85
+    SET total = 100
+    SET grade = CALL calculatePercentage(earned, total)
+    DISPLAY "Score: " + grade + "%"
+
+    // Use returned values in calculations
+    SET area1 = CALL calculateArea(5, 5)
+    SET area2 = CALL calculateArea(3, 3)
+    SET totalArea = area1 + area2
+    DISPLAY "Combined area: " + totalArea
+END

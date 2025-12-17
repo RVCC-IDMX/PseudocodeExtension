@@ -1,0 +1,17 @@
+// ================================================
+// Topic: Hello World
+// File: hello-world.dscode
+// ================================================
+// Learning objectives:
+// - BEGIN/END structure
+// - DISPLAY keyword
+// - String literals
+// - Comments
+// ================================================
+
+// My first pseudocode program
+// This program displays a greeting
+
+BEGIN
+    DISPLAY "Hello, World!"
+END

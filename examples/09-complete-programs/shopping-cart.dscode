@@ -1,0 +1,334 @@
+// ================================================
+// Topic: Shopping Cart Program
+// File: shopping-cart.dscode
+// ================================================
+// Learning objectives:
+// - Data structures
+// - Calculations
+// - User interaction
+// ================================================
+
+// Shopping Cart System
+// E-commerce cart functionality
+
+// ----------------------------------------
+// Product Catalog (simulated data)
+// ----------------------------------------
+
+SET productNames = ["Laptop", "Mouse", "Keyboard", "Monitor", "Headphones"]
+SET productPrices = [999.99, 29.99, 79.99, 299.99, 149.99]
+SET productStock = [10, 50, 30, 15, 25]
+
+// ----------------------------------------
+// Shopping Cart Data
+// ----------------------------------------
+
+SET cartItems = []
+SET cartQuantities = []
+SET cartPrices = []
+SET cartCount = 0
+
+// ----------------------------------------
+// Constants
+// ----------------------------------------
+
+SET TAX_RATE = 0.08
+SET FREE_SHIPPING_THRESHOLD = 100
+
+// ----------------------------------------
+// Helper Functions
+// ----------------------------------------
+
+FUNCTION displayLine ()
+BEGIN
+    DISPLAY "================================================"
+END
+
+FUNCTION displayHeader (title)
+BEGIN
+    CALL displayLine()
+    DISPLAY "  " + title
+    CALL displayLine()
+END
+
+FUNCTION formatPrice (price)
+BEGIN
+    RETURN "$" + price
+END
+
+// ----------------------------------------
+// Product Functions
+// ----------------------------------------
+
+FUNCTION displayProducts ()
+BEGIN
+    CALL displayHeader("PRODUCT CATALOG")
+    DISPLAY ""
+    DISPLAY "ID | Product      | Price      | Stock"
+    DISPLAY "---|--------------|------------|------"
+
+    FOR i = 1 TO 5 STEP 1
+        DISPLAY i + "  | " + productNames[i] + "    | " + CALL formatPrice(productPrices[i]) + " | " + productStock[i]
+    NEXT i
+
+    DISPLAY ""
+END
+
+FUNCTION getProductName (productId)
+BEGIN
+    IF productId >= 1 AND productId <= 5 THEN
+        RETURN productNames[productId]
+    ELSE
+        RETURN "Unknown"
+    ENDIF
+END
+
+FUNCTION getProductPrice (productId)
+BEGIN
+    IF productId >= 1 AND productId <= 5 THEN
+        RETURN productPrices[productId]
+    ELSE
+        RETURN 0
+    ENDIF
+END
+
+// ----------------------------------------
+// Cart Functions
+// ----------------------------------------
+
+FUNCTION addToCart (productId, quantity)
+BEGIN
+    IF productId < 1 OR productId > 5 THEN
+        DISPLAY "Invalid product ID"
+        RETURN false
+    ENDIF
+
+    IF quantity <= 0 THEN
+        DISPLAY "Invalid quantity"
+        RETURN false
+    ENDIF
+
+    IF quantity > productStock[productId] THEN
+        DISPLAY "Not enough stock. Available: " + productStock[productId]
+        RETURN false
+    ENDIF
+
+    // Add to cart
+    SET cartCount = cartCount + 1
+    SET cartItems[cartCount] = productId
+    SET cartQuantities[cartCount] = quantity
+    SET cartPrices[cartCount] = CALL getProductPrice(productId)
+
+    // Update stock
+    SET productStock[productId] = productStock[productId] - quantity
+
+    DISPLAY "Added " + quantity + " x " + CALL getProductName(productId) + " to cart"
+    RETURN true
+END
+
+FUNCTION removeFromCart (cartIndex)
+BEGIN
+    IF cartIndex < 1 OR cartIndex > cartCount THEN
+        DISPLAY "Invalid cart item"
+        RETURN false
+    ENDIF
+
+    // Return stock
+    SET productId = cartItems[cartIndex]
+    SET productStock[productId] = productStock[productId] + cartQuantities[cartIndex]
+
+    // Remove from cart (shift items)
+    FOR i = cartIndex TO cartCount - 1 STEP 1
+        SET cartItems[i] = cartItems[i + 1]
+        SET cartQuantities[i] = cartQuantities[i + 1]
+        SET cartPrices[i] = cartPrices[i + 1]
+    NEXT i
+
+    SET cartCount = cartCount - 1
+    DISPLAY "Item removed from cart"
+    RETURN true
+END
+
+FUNCTION calculateSubtotal ()
+BEGIN
+    SET subtotal = 0
+    FOR i = 1 TO cartCount STEP 1
+        SET itemTotal = cartPrices[i] * cartQuantities[i]
+        SET subtotal = subtotal + itemTotal
+    NEXT i
+    RETURN subtotal
+END
+
+FUNCTION calculateTax (subtotal)
+BEGIN
+    RETURN subtotal * TAX_RATE
+END
+
+FUNCTION calculateShipping (subtotal)
+BEGIN
+    IF subtotal >= FREE_SHIPPING_THRESHOLD THEN
+        RETURN 0
+    ELSE
+        RETURN 9.99
+    ENDIF
+END
+
+FUNCTION displayCart ()
+BEGIN
+    CALL displayHeader("YOUR SHOPPING CART")
+
+    IF cartCount = 0 THEN
+        DISPLAY "Your cart is empty"
+        DISPLAY ""
+        RETURN
+    ENDIF
+
+    DISPLAY ""
+    DISPLAY "#  | Product      | Price    | Qty | Total"
+    DISPLAY "---|--------------|----------|-----|----------"
+
+    FOR i = 1 TO cartCount STEP 1
+        SET productName = CALL getProductName(cartItems[i])
+        SET itemTotal = cartPrices[i] * cartQuantities[i]
+        DISPLAY i + "  | " + productName + "    | " + CALL formatPrice(cartPrices[i]) + " | " + cartQuantities[i] + "   | " + CALL formatPrice(itemTotal)
+    NEXT i
+
+    DISPLAY ""
+    CALL displayLine()
+
+    SET subtotal = CALL calculateSubtotal()
+    SET tax = CALL calculateTax(subtotal)
+    SET shipping = CALL calculateShipping(subtotal)
+    SET total = subtotal + tax + shipping
+
+    DISPLAY "Subtotal:   " + CALL formatPrice(subtotal)
+    DISPLAY "Tax (8%):   " + CALL formatPrice(tax)
+
+    IF shipping = 0 THEN
+        DISPLAY "Shipping:   FREE"
+    ELSE
+        DISPLAY "Shipping:   " + CALL formatPrice(shipping)
+    ENDIF
+
+    CALL displayLine()
+    DISPLAY "TOTAL:      " + CALL formatPrice(total)
+    DISPLAY ""
+
+    IF subtotal < FREE_SHIPPING_THRESHOLD THEN
+        SET needed = FREE_SHIPPING_THRESHOLD - subtotal
+        DISPLAY "Add " + CALL formatPrice(needed) + " more for FREE shipping!"
+    ENDIF
+END
+
+FUNCTION checkout ()
+BEGIN
+    IF cartCount = 0 THEN
+        DISPLAY "Your cart is empty!"
+        RETURN false
+    ENDIF
+
+    CALL displayHeader("CHECKOUT")
+    CALL displayCart()
+
+    DISPLAY "Confirm purchase? (yes/no):"
+    INPUT confirm
+
+    IF confirm = "yes" THEN
+        SET total = CALL calculateSubtotal() + CALL calculateTax(CALL calculateSubtotal()) + CALL calculateShipping(CALL calculateSubtotal())
+
+        DISPLAY ""
+        DISPLAY "================================"
+        DISPLAY "   ORDER CONFIRMED!"
+        DISPLAY "================================"
+        DISPLAY "Total charged: " + CALL formatPrice(total)
+        DISPLAY "Thank you for your purchase!"
+        DISPLAY ""
+
+        // Clear cart
+        SET cartCount = 0
+
+        RETURN true
+    ELSE
+        DISPLAY "Checkout cancelled"
+        RETURN false
+    ENDIF
+END
+
+// ----------------------------------------
+// Menu Function
+// ----------------------------------------
+
+FUNCTION displayMenu ()
+BEGIN
+    DISPLAY ""
+    DISPLAY "=== SHOPPING CART MENU ==="
+    DISPLAY "1. View Products"
+    DISPLAY "2. Add to Cart"
+    DISPLAY "3. View Cart"
+    DISPLAY "4. Remove from Cart"
+    DISPLAY "5. Checkout"
+    DISPLAY "6. Exit"
+    DISPLAY ""
+END
+
+// ----------------------------------------
+// Main Program
+// ----------------------------------------
+
+BEGIN
+    DISPLAY ""
+    DISPLAY "╔═══════════════════════════════════════════╗"
+    DISPLAY "║       WELCOME TO THE ONLINE STORE         ║"
+    DISPLAY "╚═══════════════════════════════════════════╝"
+    DISPLAY ""
+
+    SET running = true
+
+    WHILE running = true
+        CALL displayMenu()
+
+        DISPLAY "Enter choice:"
+        INPUT choice
+
+        IF choice = 1 THEN
+            CALL displayProducts()
+
+        ELSEIF choice = 2 THEN
+            CALL displayProducts()
+
+            DISPLAY "Enter product ID (1-5):"
+            INPUT productId
+
+            DISPLAY "Enter quantity:"
+            INPUT quantity
+
+            CALL addToCart(productId, quantity)
+
+        ELSEIF choice = 3 THEN
+            CALL displayCart()
+
+        ELSEIF choice = 4 THEN
+            CALL displayCart()
+
+            IF cartCount > 0 THEN
+                DISPLAY "Enter item # to remove:"
+                INPUT itemIndex
+                CALL removeFromCart(itemIndex)
+            ENDIF
+
+        ELSEIF choice = 5 THEN
+            CALL checkout()
+
+        ELSEIF choice = 6 THEN
+            SET running = false
+
+        ELSE
+            DISPLAY "Invalid choice"
+        ENDIF
+
+    ENDWHILE
+
+    DISPLAY ""
+    DISPLAY "Thank you for visiting! Goodbye!"
+    DISPLAY ""
+END

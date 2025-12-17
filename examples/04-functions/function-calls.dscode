@@ -1,0 +1,152 @@
+// ================================================
+// Topic: Function Calls
+// File: function-calls.dscode
+// ================================================
+// Learning objectives:
+// - Different ways to call functions
+// - Functions calling other functions
+// - Organizing code with functions
+// ================================================
+
+// Functions calling other functions
+
+// Helper function
+FUNCTION printSeparator ()
+BEGIN
+    DISPLAY "================================"
+END
+
+// Function that calls another function
+FUNCTION printHeader (title)
+BEGIN
+    CALL printSeparator()
+    DISPLAY "  " + title
+    CALL printSeparator()
+END
+
+// Math helper functions
+FUNCTION add (a, b)
+BEGIN
+    RETURN a + b
+END
+
+FUNCTION multiply (a, b)
+BEGIN
+    RETURN a * b
+END
+
+// Function using other functions
+FUNCTION calculateExpression (x, y, z)
+BEGIN
+    // Calculate: (x + y) * z
+    SET sum = CALL add(x, y)
+    SET result = CALL multiply(sum, z)
+    RETURN result
+END
+
+// Validation function
+FUNCTION isValidScore (score)
+BEGIN
+    IF score >= 0 AND score <= 100 THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+END
+
+// Grade calculation using validation
+FUNCTION getGrade (score)
+BEGIN
+    IF CALL isValidScore(score) THEN
+        IF score >= 90 THEN
+            RETURN "A"
+        ELSEIF score >= 80 THEN
+            RETURN "B"
+        ELSEIF score >= 70 THEN
+            RETURN "C"
+        ELSEIF score >= 60 THEN
+            RETURN "D"
+        ELSE
+            RETURN "F"
+        ENDIF
+    ELSE
+        RETURN "Invalid"
+    ENDIF
+END
+
+// Display functions
+FUNCTION displayScore (name, score)
+BEGIN
+    SET grade = CALL getGrade(score)
+    DISPLAY name + ": " + score + " (" + grade + ")"
+END
+
+// Complex function using multiple helpers
+FUNCTION processStudent (name, test1, test2, test3)
+BEGIN
+    CALL printHeader("Student Report")
+    DISPLAY "Name: " + name
+    DISPLAY ""
+    DISPLAY "Scores:"
+    DISPLAY "  Test 1: " + test1
+    DISPLAY "  Test 2: " + test2
+    DISPLAY "  Test 3: " + test3
+
+    SET total = CALL add(test1, test2)
+    SET total = CALL add(total, test3)
+    SET average = total / 3
+
+    DISPLAY ""
+    DISPLAY "Average: " + average
+    DISPLAY "Grade: " + CALL getGrade(average)
+    CALL printSeparator()
+END
+
+// Menu function
+FUNCTION displayMenu ()
+BEGIN
+    CALL printHeader("Main Menu")
+    DISPLAY "1. Add Student"
+    DISPLAY "2. View Grades"
+    DISPLAY "3. Exit"
+    DISPLAY ""
+END
+
+// ================================================
+// Main program
+// ================================================
+
+BEGIN
+    // Simple function calls
+    CALL printHeader("Welcome")
+    DISPLAY "This program demonstrates function calls"
+    DISPLAY ""
+
+    // Functions calling functions
+    SET result = CALL calculateExpression(2, 3, 4)
+    DISPLAY "(2 + 3) * 4 = " + result
+
+    SET result2 = CALL calculateExpression(5, 5, 2)
+    DISPLAY "(5 + 5) * 2 = " + result2
+    DISPLAY ""
+
+    // Using validation
+    DISPLAY "Score 85 valid? " + CALL isValidScore(85)
+    DISPLAY "Score 150 valid? " + CALL isValidScore(150)
+    DISPLAY ""
+
+    // Display scores with grades
+    CALL displayScore("Alice", 95)
+    CALL displayScore("Bob", 78)
+    CALL displayScore("Charlie", 62)
+    DISPLAY ""
+
+    // Process full student reports
+    CALL processStudent("Diana", 88, 92, 85)
+    CALL processStudent("Edward", 72, 68, 75)
+
+    // Display menu
+    CALL displayMenu()
+
+    DISPLAY "Program complete!"
+END

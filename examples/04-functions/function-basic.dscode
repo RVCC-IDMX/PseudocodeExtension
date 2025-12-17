@@ -1,0 +1,74 @@
+// ================================================
+// Topic: Basic Functions
+// File: function-basic.dscode
+// ================================================
+// Learning objectives:
+// - FUNCTION keyword
+// - Function naming
+// - BEGIN/END in functions
+// - CALL keyword
+// ================================================
+
+// Basic function definition
+// Functions group reusable code
+
+// Define a simple function (no parameters)
+FUNCTION greetUser ()
+BEGIN
+    DISPLAY "Hello, user!"
+    DISPLAY "Welcome to the program"
+END
+
+// Another simple function
+FUNCTION showMenu ()
+BEGIN
+    DISPLAY "========================"
+    DISPLAY "      MAIN MENU"
+    DISPLAY "========================"
+    DISPLAY "1. Start"
+    DISPLAY "2. Options"
+    DISPLAY "3. Exit"
+    DISPLAY "========================"
+END
+
+// Function to display a separator line
+FUNCTION printLine ()
+BEGIN
+    DISPLAY "------------------------"
+END
+
+// Function with multiple statements
+FUNCTION showWelcome ()
+BEGIN
+    CALL printLine()
+    DISPLAY "Welcome to My Program"
+    DISPLAY "Version 1.0"
+    CALL printLine()
+END
+
+// ================================================
+// Main program
+// ================================================
+
+BEGIN
+    // Call our functions
+    CALL greetUser()
+
+    DISPLAY ""  // Empty line
+
+    CALL showMenu()
+
+    DISPLAY ""
+
+    // Functions can be called multiple times
+    CALL printLine()
+    DISPLAY "Processing..."
+    CALL printLine()
+
+    // Call the welcome function (which calls printLine internally)
+    CALL showWelcome()
+
+    // Functions make code more readable and reusable
+    DISPLAY "Program complete"
+    CALL printLine()
+END

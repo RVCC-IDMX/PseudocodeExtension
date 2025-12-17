@@ -1,0 +1,33 @@
+// ================================================
+// Topic: Simple IF Statement
+// File: if-simple.dscode
+// ================================================
+// Learning objectives:
+// - IF/THEN/ENDIF structure
+// - Conditions
+// - Code indentation
+// ================================================
+
+// Simple IF statement
+// Executes code only when condition is true
+
+BEGIN
+    DISPLAY "Enter your age:"
+    INPUT age
+
+    // The code inside IF only runs if condition is true
+    IF age >= 18 THEN
+        DISPLAY "You are an adult"
+        DISPLAY "You can vote!"
+    ENDIF
+
+    // Another example
+    SET score = 85
+
+    IF score >= 90 THEN
+        DISPLAY "Excellent work!"
+    ENDIF
+
+    // Program continues regardless of IF result
+    DISPLAY "Thank you for using this program"
+END

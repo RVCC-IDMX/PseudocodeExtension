@@ -1,0 +1,158 @@
+// ================================================
+// Topic: SQL Queries
+// File: sql-queries.dscode
+// ================================================
+// Learning objectives:
+// - SQL keyword
+// - QUERY keyword
+// - Basic SQL syntax in pseudocode
+// ================================================
+
+// SQL database operations
+// Working with databases
+
+BEGIN
+    // ----------------------------------------
+    // SELECT - Retrieving data
+    // ----------------------------------------
+
+    DISPLAY "=== SELECT Queries ==="
+
+    // Basic select all
+    SQL "SELECT * FROM students"
+    DISPLAY "Retrieved all students"
+
+    // Select specific columns
+    SQL "SELECT name, age FROM students"
+    DISPLAY "Retrieved student names and ages"
+
+    // Select with condition (WHERE)
+    SQL "SELECT * FROM students WHERE grade > 80"
+    DISPLAY "Retrieved students with grade > 80"
+
+    // Select with multiple conditions
+    SQL "SELECT * FROM students WHERE grade >= 70 AND age < 18"
+    DISPLAY "Retrieved young students with passing grades"
+
+    // Select with ordering
+    QUERY "SELECT name, score FROM results ORDER BY score DESC"
+    DISPLAY "Retrieved results sorted by score (highest first)"
+
+    // Select with limit
+    SQL "SELECT * FROM products ORDER BY price ASC LIMIT 10"
+    DISPLAY "Retrieved 10 cheapest products"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // INSERT - Adding new data
+    // ----------------------------------------
+
+    DISPLAY "=== INSERT Queries ==="
+
+    // Insert single record
+    SQL "INSERT INTO students (name, age, grade) VALUES ('Alice', 17, 85)"
+    DISPLAY "Added new student: Alice"
+
+    // Insert with variables
+    SET studentName = "Bob"
+    SET studentAge = 16
+    SET studentGrade = 78
+
+    SQL "INSERT INTO students (name, age, grade) VALUES ('" + studentName + "', " + studentAge + ", " + studentGrade + ")"
+    DISPLAY "Added new student: " + studentName
+
+    // Insert into different table
+    SQL "INSERT INTO courses (course_id, name, credits) VALUES ('CS101', 'Intro to Programming', 3)"
+    DISPLAY "Added new course"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // UPDATE - Modifying existing data
+    // ----------------------------------------
+
+    DISPLAY "=== UPDATE Queries ==="
+
+    // Update single field
+    SQL "UPDATE students SET grade = 95 WHERE id = 123"
+    DISPLAY "Updated student 123's grade to 95"
+
+    // Update multiple fields
+    SQL "UPDATE students SET grade = 88, status = 'active' WHERE name = 'Alice'"
+    DISPLAY "Updated Alice's record"
+
+    // Update with calculation
+    SQL "UPDATE products SET price = price * 1.10 WHERE category = 'electronics'"
+    DISPLAY "Increased all electronics prices by 10%"
+
+    // Update all records (be careful!)
+    SQL "UPDATE settings SET last_updated = '2024-01-15'"
+    DISPLAY "Updated all settings timestamps"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // DELETE - Removing data
+    // ----------------------------------------
+
+    DISPLAY "=== DELETE Queries ==="
+
+    // Delete specific record
+    SQL "DELETE FROM students WHERE id = 456"
+    DISPLAY "Deleted student 456"
+
+    // Delete with condition
+    SQL "DELETE FROM students WHERE graduated = true"
+    DISPLAY "Deleted all graduated students"
+
+    // Delete old records
+    SQL "DELETE FROM logs WHERE date < '2023-01-01'"
+    DISPLAY "Deleted old log entries"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Advanced queries
+    // ----------------------------------------
+
+    DISPLAY "=== Advanced Queries ==="
+
+    // JOIN - Combining tables
+    SQL "SELECT students.name, courses.name FROM students JOIN enrollments ON students.id = enrollments.student_id JOIN courses ON enrollments.course_id = courses.id"
+    DISPLAY "Retrieved students with their courses"
+
+    // GROUP BY - Aggregating data
+    QUERY "SELECT grade, COUNT(*) as student_count FROM students GROUP BY grade"
+    DISPLAY "Retrieved count of students per grade"
+
+    // HAVING - Filtering groups
+    SQL "SELECT category, AVG(price) as avg_price FROM products GROUP BY category HAVING AVG(price) > 50"
+    DISPLAY "Retrieved categories with average price > $50"
+
+    // Subquery
+    SQL "SELECT * FROM students WHERE grade > (SELECT AVG(grade) FROM students)"
+    DISPLAY "Retrieved students above average"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical example: User management
+    // ----------------------------------------
+
+    DISPLAY "=== User Management System ==="
+
+    // Check if user exists
+    QUERY "SELECT COUNT(*) FROM users WHERE username = 'admin'"
+    DISPLAY "Checked if admin exists"
+
+    // Get user login info
+    QUERY "SELECT id, username, last_login FROM users WHERE username = 'admin' AND password_hash = 'abc123'"
+    DISPLAY "Retrieved admin login info"
+
+    // Update last login
+    SQL "UPDATE users SET last_login = NOW() WHERE username = 'admin'"
+    DISPLAY "Updated admin's last login time"
+
+    // Get user's permissions
+    QUERY "SELECT permissions.name FROM permissions JOIN user_permissions ON permissions.id = user_permissions.permission_id WHERE user_permissions.user_id = 1"
+    DISPLAY "Retrieved admin's permissions"
+
+    DISPLAY ""
+    DISPLAY "Database operations complete!"
+END

@@ -1,0 +1,83 @@
+// ================================================
+// Topic: Operators
+// File: operators.dscode
+// ================================================
+// Learning objectives:
+// - Arithmetic operations
+// - Comparison expressions
+// - Combining conditions with AND, OR, NOT
+// ================================================
+
+BEGIN
+    // ----------------------------------------
+    // Arithmetic operators
+    // ----------------------------------------
+    SET a = 10
+    SET b = 5
+
+    SET sum = a + b           // Addition: 15
+    SET difference = a - b    // Subtraction: 5
+    SET product = a * b       // Multiplication: 50
+    SET quotient = a / b      // Division: 2
+
+    DISPLAY "Sum: " + sum
+    DISPLAY "Difference: " + difference
+    DISPLAY "Product: " + product
+    DISPLAY "Quotient: " + quotient
+
+    // ----------------------------------------
+    // Comparison operators
+    // ----------------------------------------
+    SET age = 20
+    SET score = 75
+    SET name = "Admin"
+    SET status = "active"
+
+    // Greater than or equal (>=)
+    IF age >= 18 THEN
+        DISPLAY "Adult"
+    ENDIF
+
+    // Less than (<)
+    IF score < 50 THEN
+        DISPLAY "Failing"
+    ENDIF
+
+    // Equal to (=)
+    IF name = "Admin" THEN
+        DISPLAY "Welcome, administrator"
+    ENDIF
+
+    // Not equal to (<>)
+    IF status <> "inactive" THEN
+        DISPLAY "Account is active"
+    ENDIF
+
+    // ----------------------------------------
+    // Logical operators
+    // ----------------------------------------
+    SET hasLicense = true
+    SET isWeekend = false
+    SET isHoliday = true
+    SET isBlocked = false
+
+    // AND - both conditions must be true
+    IF age >= 18 AND hasLicense = true THEN
+        DISPLAY "Can drive"
+    ENDIF
+
+    // OR - at least one condition must be true
+    IF isWeekend OR isHoliday THEN
+        DISPLAY "Day off!"
+    ENDIF
+
+    // NOT - reverses the condition
+    IF NOT isBlocked THEN
+        DISPLAY "Access granted"
+    ENDIF
+
+    // Combining multiple operators
+    IF age >= 18 AND (hasLicense = true OR isHoliday) THEN
+        DISPLAY "Complex condition met"
+    ENDIF
+END

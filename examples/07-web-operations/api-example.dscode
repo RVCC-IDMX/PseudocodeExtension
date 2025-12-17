@@ -1,0 +1,246 @@
+// ================================================
+// Topic: API Example
+// File: api-example.dscode
+// ================================================
+// Learning objectives:
+// - Working with REST APIs
+// - Building an API client
+// - CRUD operations via API
+// ================================================
+
+// Complete API Example
+// A task management app using a REST API
+
+// ----------------------------------------
+// API Helper Functions
+// ----------------------------------------
+
+FUNCTION getAuthHeader ()
+BEGIN
+    // In a real app, get token from storage
+    SET token = "user_auth_token_123"
+    RETURN "Bearer " + token
+END
+
+FUNCTION displayTask (task)
+BEGIN
+    SET status = ""
+    IF task.completed THEN
+        SET status = "[X]"
+    ELSE
+        SET status = "[ ]"
+    ENDIF
+    DISPLAY status + " " + task.id + ": " + task.title
+END
+
+// ----------------------------------------
+// CRUD Operations
+// ----------------------------------------
+
+// CREATE - Add new task
+FUNCTION createTask (title, description)
+BEGIN
+    SET taskData = {
+        title: title,
+        description: description,
+        completed: false
+    }
+
+    POST taskData TO "https://api.tasks.com/tasks"
+
+    IF response.success THEN
+        DISPLAY "Task created: " + response.task.id
+        RETURN response.task
+    ELSE
+        DISPLAY "Error creating task: " + response.error
+        RETURN null
+    ENDIF
+END
+
+// READ - Get all tasks
+FUNCTION getAllTasks ()
+BEGIN
+    GET "https://api.tasks.com/tasks"
+
+    IF response.success THEN
+        RETURN response.tasks
+    ELSE
+        DISPLAY "Error fetching tasks"
+        RETURN []
+    ENDIF
+END
+
+// READ - Get single task
+FUNCTION getTask (taskId)
+BEGIN
+    GET "https://api.tasks.com/tasks/" + taskId
+
+    IF response.success THEN
+        RETURN response.task
+    ELSE
+        DISPLAY "Task not found"
+        RETURN null
+    ENDIF
+END
+
+// UPDATE - Modify task
+FUNCTION updateTask (taskId, updates)
+BEGIN
+    POST updates TO "https://api.tasks.com/tasks/" + taskId
+
+    IF response.success THEN
+        DISPLAY "Task updated"
+        RETURN response.task
+    ELSE
+        DISPLAY "Error updating task"
+        RETURN null
+    ENDIF
+END
+
+// DELETE - Remove task
+FUNCTION deleteTask (taskId)
+BEGIN
+    // Using POST with delete action (simplified)
+    SET deleteRequest = { action: "delete" }
+    POST deleteRequest TO "https://api.tasks.com/tasks/" + taskId + "/delete"
+
+    IF response.success THEN
+        DISPLAY "Task deleted"
+        RETURN true
+    ELSE
+        DISPLAY "Error deleting task"
+        RETURN false
+    ENDIF
+END
+
+// ----------------------------------------
+// Main Application
+// ----------------------------------------
+
+BEGIN
+    DISPLAY "================================"
+    DISPLAY "    TASK MANAGER APP"
+    DISPLAY "================================"
+    DISPLAY ""
+
+    SET running = true
+
+    WHILE running = true
+        DISPLAY ""
+        DISPLAY "--- MENU ---"
+        DISPLAY "1. View all tasks"
+        DISPLAY "2. Add new task"
+        DISPLAY "3. Mark task complete"
+        DISPLAY "4. Delete task"
+        DISPLAY "5. Search tasks"
+        DISPLAY "6. Exit"
+        DISPLAY ""
+        DISPLAY "Enter choice:"
+        INPUT choice
+
+        IF choice = 1 THEN
+            // View all tasks
+            DISPLAY ""
+            DISPLAY "=== YOUR TASKS ==="
+
+            SET tasks = CALL getAllTasks()
+            SET taskCount = 0
+
+            // Display each task (simulated loop)
+            FOR i = 1 TO 10 STEP 1
+                IF tasks[i] <> null THEN
+                    CALL displayTask(tasks[i])
+                    SET taskCount = taskCount + 1
+                ENDIF
+            NEXT i
+
+            IF taskCount = 0 THEN
+                DISPLAY "No tasks found. Add one!"
+            ELSE
+                DISPLAY ""
+                DISPLAY "Total: " + taskCount + " tasks"
+            ENDIF
+
+        ELSEIF choice = 2 THEN
+            // Add new task
+            DISPLAY ""
+            DISPLAY "=== ADD NEW TASK ==="
+
+            DISPLAY "Enter task title:"
+            INPUT taskTitle
+
+            DISPLAY "Enter description (optional):"
+            INPUT taskDescription
+
+            SET newTask = CALL createTask(taskTitle, taskDescription)
+
+            IF newTask <> null THEN
+                DISPLAY "Task added successfully!"
+            ENDIF
+
+        ELSEIF choice = 3 THEN
+            // Mark task complete
+            DISPLAY ""
+            DISPLAY "=== MARK COMPLETE ==="
+
+            DISPLAY "Enter task ID:"
+            INPUT taskId
+
+            SET updates = { completed: true }
+            SET result = CALL updateTask(taskId, updates)
+
+            IF result <> null THEN
+                DISPLAY "Task marked as complete!"
+            ENDIF
+
+        ELSEIF choice = 4 THEN
+            // Delete task
+            DISPLAY ""
+            DISPLAY "=== DELETE TASK ==="
+
+            DISPLAY "Enter task ID to delete:"
+            INPUT taskId
+
+            DISPLAY "Are you sure? (yes/no):"
+            INPUT confirm
+
+            IF confirm = "yes" THEN
+                SET deleted = CALL deleteTask(taskId)
+                IF deleted THEN
+                    DISPLAY "Task removed"
+                ENDIF
+            ELSE
+                DISPLAY "Cancelled"
+            ENDIF
+
+        ELSEIF choice = 5 THEN
+            // Search tasks
+            DISPLAY ""
+            DISPLAY "=== SEARCH TASKS ==="
+
+            DISPLAY "Enter search term:"
+            INPUT searchTerm
+
+            GET "https://api.tasks.com/tasks/search?q=" + searchTerm
+            SET results = response.tasks
+
+            DISPLAY "Found " + response.count + " matching tasks:"
+            FOR j = 1 TO response.count STEP 1
+                CALL displayTask(results[j])
+            NEXT j
+
+        ELSEIF choice = 6 THEN
+            // Exit
+            SET running = false
+            DISPLAY ""
+            DISPLAY "Goodbye!"
+
+        ELSE
+            DISPLAY "Invalid choice. Please try again."
+        ENDIF
+
+    ENDWHILE
+
+    DISPLAY ""
+    DISPLAY "Application closed."
+END

@@ -1,0 +1,35 @@
+// ================================================
+// Topic: Comments
+// File: comments.dscode
+// ================================================
+// Learning objectives:
+// - Single line comments
+// - Block comments
+// - When to use comments
+// ================================================
+
+// Single line comment examples
+// Comments explain what your code does
+
+/* Block comment
+   spanning multiple
+   lines */
+
+/* Inline block comment */ SET x = 5
+
+BEGIN
+    // Comments can appear inside code blocks
+    SET message = "Hello"
+
+    /*
+     * Multi-line comments are useful for
+     * longer explanations or temporarily
+     * disabling code
+     */
+
+    DISPLAY message  // Comments can appear at end of lines
+END
+
+// Edge cases - these are strings, NOT comments:
+// SET example1 = "This is not a // comment"
+// SET example2 = "/* also not a comment */"

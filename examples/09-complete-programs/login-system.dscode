@@ -1,0 +1,371 @@
+// ================================================
+// Topic: Login System
+// File: login-system.dscode
+// ================================================
+// Learning objectives:
+// - Input validation
+// - Conditional logic
+// - Loops
+// - Security concepts
+// ================================================
+
+// Simple Login System
+// Demonstrates authentication concepts
+
+// ----------------------------------------
+// User Database (simulated)
+// ----------------------------------------
+
+SET usernames = ["admin", "user1", "guest"]
+SET passwords = ["admin123", "password1", "guest123"]
+SET userRoles = ["administrator", "user", "guest"]
+SET userCount = 3
+
+// ----------------------------------------
+// Constants
+// ----------------------------------------
+
+SET MAX_ATTEMPTS = 3
+SET MIN_PASSWORD_LENGTH = 6
+
+// ----------------------------------------
+// Security Functions
+// ----------------------------------------
+
+FUNCTION validateUsername (username)
+BEGIN
+    IF username = "" THEN
+        DISPLAY "Username cannot be empty"
+        RETURN false
+    ENDIF
+
+    IF username < 3 THEN
+        DISPLAY "Username must be at least 3 characters"
+        RETURN false
+    ENDIF
+
+    RETURN true
+END
+
+FUNCTION validatePassword (password)
+BEGIN
+    IF password = "" THEN
+        DISPLAY "Password cannot be empty"
+        RETURN false
+    ENDIF
+
+    IF password < MIN_PASSWORD_LENGTH THEN
+        DISPLAY "Password must be at least " + MIN_PASSWORD_LENGTH + " characters"
+        RETURN false
+    ENDIF
+
+    RETURN true
+END
+
+FUNCTION findUser (username)
+BEGIN
+    FOR i = 1 TO userCount STEP 1
+        IF usernames[i] = username THEN
+            RETURN i
+        ENDIF
+    NEXT i
+    RETURN 0  // User not found
+END
+
+FUNCTION authenticateUser (username, password)
+BEGIN
+    SET userIndex = CALL findUser(username)
+
+    IF userIndex = 0 THEN
+        RETURN false  // User not found
+    ENDIF
+
+    IF passwords[userIndex] = password THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+END
+
+FUNCTION getUserRole (username)
+BEGIN
+    SET userIndex = CALL findUser(username)
+
+    IF userIndex > 0 THEN
+        RETURN userRoles[userIndex]
+    ELSE
+        RETURN "unknown"
+    ENDIF
+END
+
+// ----------------------------------------
+// Registration Function
+// ----------------------------------------
+
+FUNCTION registerUser ()
+BEGIN
+    DISPLAY ""
+    DISPLAY "=== NEW USER REGISTRATION ==="
+    DISPLAY ""
+
+    // Get username
+    SET validUsername = false
+    WHILE validUsername = false
+        DISPLAY "Enter new username:"
+        INPUT newUsername
+
+        SET validUsername = CALL validateUsername(newUsername)
+
+        IF validUsername THEN
+            // Check if username exists
+            IF CALL findUser(newUsername) > 0 THEN
+                DISPLAY "Username already exists"
+                SET validUsername = false
+            ENDIF
+        ENDIF
+    ENDWHILE
+
+    // Get password
+    SET validPassword = false
+    WHILE validPassword = false
+        DISPLAY "Enter password:"
+        INPUT newPassword
+
+        SET validPassword = CALL validatePassword(newPassword)
+
+        IF validPassword THEN
+            DISPLAY "Confirm password:"
+            INPUT confirmPassword
+
+            IF newPassword <> confirmPassword THEN
+                DISPLAY "Passwords do not match"
+                SET validPassword = false
+            ENDIF
+        ENDIF
+    ENDWHILE
+
+    // Add new user
+    SET userCount = userCount + 1
+    SET usernames[userCount] = newUsername
+    SET passwords[userCount] = newPassword
+    SET userRoles[userCount] = "user"
+
+    DISPLAY ""
+    DISPLAY "Registration successful!"
+    DISPLAY "You can now login with your credentials."
+
+    RETURN true
+END
+
+// ----------------------------------------
+// Login Function
+// ----------------------------------------
+
+FUNCTION login ()
+BEGIN
+    DISPLAY ""
+    DISPLAY "=== USER LOGIN ==="
+    DISPLAY ""
+
+    SET attempts = 0
+    SET loggedIn = false
+    SET currentUser = ""
+
+    WHILE loggedIn = false AND attempts < MAX_ATTEMPTS
+        DISPLAY "Username:"
+        INPUT username
+
+        DISPLAY "Password:"
+        INPUT password
+
+        IF CALL authenticateUser(username, password) THEN
+            SET loggedIn = true
+            SET currentUser = username
+            DISPLAY ""
+            DISPLAY "Login successful!"
+        ELSE
+            SET attempts = attempts + 1
+            SET remaining = MAX_ATTEMPTS - attempts
+
+            IF remaining > 0 THEN
+                DISPLAY "Invalid credentials. " + remaining + " attempts remaining."
+            ELSE
+                DISPLAY "Too many failed attempts. Account locked."
+            ENDIF
+        ENDIF
+    ENDWHILE
+
+    RETURN currentUser
+END
+
+// ----------------------------------------
+// User Dashboard
+// ----------------------------------------
+
+FUNCTION showDashboard (username)
+BEGIN
+    SET role = CALL getUserRole(username)
+
+    DISPLAY ""
+    DISPLAY "╔══════════════════════════════════════╗"
+    DISPLAY "║           USER DASHBOARD             ║"
+    DISPLAY "╚══════════════════════════════════════╝"
+    DISPLAY ""
+    DISPLAY "Welcome, " + username + "!"
+    DISPLAY "Role: " + role
+    DISPLAY ""
+
+    // Show menu based on role
+    IF role = "administrator" THEN
+        DISPLAY "=== ADMIN MENU ==="
+        DISPLAY "1. View All Users"
+        DISPLAY "2. System Settings"
+        DISPLAY "3. View Logs"
+        DISPLAY "4. Logout"
+    ELSEIF role = "user" THEN
+        DISPLAY "=== USER MENU ==="
+        DISPLAY "1. My Profile"
+        DISPLAY "2. Change Password"
+        DISPLAY "3. Logout"
+    ELSE
+        DISPLAY "=== GUEST MENU ==="
+        DISPLAY "1. Browse (limited)"
+        DISPLAY "2. Logout"
+    ENDIF
+END
+
+FUNCTION adminViewUsers ()
+BEGIN
+    DISPLAY ""
+    DISPLAY "=== ALL USERS ==="
+    DISPLAY "Username     | Role"
+    DISPLAY "-------------|-------------"
+
+    FOR i = 1 TO userCount STEP 1
+        DISPLAY usernames[i] + "       | " + userRoles[i]
+    NEXT i
+END
+
+FUNCTION changePassword (username)
+BEGIN
+    DISPLAY ""
+    DISPLAY "=== CHANGE PASSWORD ==="
+
+    DISPLAY "Enter current password:"
+    INPUT currentPassword
+
+    IF NOT CALL authenticateUser(username, currentPassword) THEN
+        DISPLAY "Incorrect current password"
+        RETURN false
+    ENDIF
+
+    DISPLAY "Enter new password:"
+    INPUT newPassword
+
+    IF NOT CALL validatePassword(newPassword) THEN
+        RETURN false
+    ENDIF
+
+    DISPLAY "Confirm new password:"
+    INPUT confirmPassword
+
+    IF newPassword <> confirmPassword THEN
+        DISPLAY "Passwords do not match"
+        RETURN false
+    ENDIF
+
+    // Update password
+    SET userIndex = CALL findUser(username)
+    SET passwords[userIndex] = newPassword
+
+    DISPLAY "Password changed successfully!"
+    RETURN true
+END
+
+// ----------------------------------------
+// Main Program
+// ----------------------------------------
+
+BEGIN
+    DISPLAY ""
+    DISPLAY "╔══════════════════════════════════════════╗"
+    DISPLAY "║        SECURE LOGIN SYSTEM               ║"
+    DISPLAY "║        Demo Application                  ║"
+    DISPLAY "╚══════════════════════════════════════════╝"
+
+    SET running = true
+
+    WHILE running = true
+        DISPLAY ""
+        DISPLAY "=== MAIN MENU ==="
+        DISPLAY "1. Login"
+        DISPLAY "2. Register"
+        DISPLAY "3. Exit"
+        DISPLAY ""
+        DISPLAY "Enter choice:"
+        INPUT mainChoice
+
+        IF mainChoice = 1 THEN
+            // Login
+            SET currentUser = CALL login()
+
+            IF currentUser <> "" THEN
+                SET userSession = true
+
+                WHILE userSession = true
+                    CALL showDashboard(currentUser)
+                    DISPLAY ""
+                    DISPLAY "Enter choice:"
+                    INPUT dashChoice
+
+                    SET role = CALL getUserRole(currentUser)
+
+                    IF role = "administrator" THEN
+                        IF dashChoice = 1 THEN
+                            CALL adminViewUsers()
+                        ELSEIF dashChoice = 2 THEN
+                            DISPLAY "System Settings (demo)"
+                        ELSEIF dashChoice = 3 THEN
+                            DISPLAY "Viewing Logs (demo)"
+                        ELSEIF dashChoice = 4 THEN
+                            SET userSession = false
+                            DISPLAY "Logged out successfully"
+                        ENDIF
+                    ELSEIF role = "user" THEN
+                        IF dashChoice = 1 THEN
+                            DISPLAY "Profile for: " + currentUser
+                        ELSEIF dashChoice = 2 THEN
+                            CALL changePassword(currentUser)
+                        ELSEIF dashChoice = 3 THEN
+                            SET userSession = false
+                            DISPLAY "Logged out successfully"
+                        ENDIF
+                    ELSE
+                        IF dashChoice = 1 THEN
+                            DISPLAY "Browsing as guest (limited)"
+                        ELSEIF dashChoice = 2 THEN
+                            SET userSession = false
+                            DISPLAY "Logged out successfully"
+                        ENDIF
+                    ENDIF
+                ENDWHILE
+            ENDIF
+
+        ELSEIF mainChoice = 2 THEN
+            // Register
+            CALL registerUser()
+
+        ELSEIF mainChoice = 3 THEN
+            // Exit
+            SET running = false
+
+        ELSE
+            DISPLAY "Invalid choice"
+        ENDIF
+
+    ENDWHILE
+
+    DISPLAY ""
+    DISPLAY "Thank you for using the system. Goodbye!"
+    DISPLAY ""
+END

@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Digital Solutions Pseudocode",
+	"name": "Pseudocode",
 	"patterns": [
 		{
 			"include": "#keywords"
@@ -17,10 +17,12 @@
 	],
 	"repository": {
 		"keywords": {
-			"patterns": [{
-				"name": "keyword",
-				"match": "\\b(SQL|CLASS|AND|NOT|OR|CALL|IF|THEN|ELSEIF|ELSE|ENDIF|BEGIN|END|EXIT|FUNCTION|RETURN|END FUNCTION|FOR|TO|STEP|NEXT|ENDFOR|END FOR|INPUT|SET|PRINT|OUTPUT|DISPLAY|REPEAT|UNTIL|ENDWHILE|WHILE|GET|POST|FETCH|READ|WRITE|QUERY|CALCULATE)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword",
+					"match": "\\b(SQL|CLASS|AND|NOT|OR|CALL|IF|THEN|ELSEIF|ELSE|ENDIF|BEGIN|END|EXIT|FUNCTION|RETURN|END FUNCTION|FOR|TO|STEP|NEXT|ENDFOR|END FOR|INPUT|SET|PRINT|OUTPUT|DISPLAY|REPEAT|UNTIL|ENDWHILE|WHILE|GET|POST|FETCH|READ|WRITE|QUERY|CALCULATE)\\b"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.",
@@ -33,10 +35,10 @@
 				}
 			]
 		},
-		"comments":{
-			"name":"comment",
+		"comments": {
+			"name": "comment",
 			"begin": "\/\/",
-			"end":"\n"
+			"end": "\n"
 		}
 	},
 	"scopeName": "source.dscode"

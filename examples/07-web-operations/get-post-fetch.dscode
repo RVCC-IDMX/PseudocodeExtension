@@ -1,0 +1,199 @@
+// ================================================
+// Topic: GET, POST, and FETCH Operations
+// File: get-post-fetch.dscode
+// ================================================
+// Learning objectives:
+// - GET keyword for retrieving data
+// - POST keyword for sending data
+// - FETCH keyword for general web requests
+// - API concepts
+// ================================================
+
+// Web operations
+// Working with APIs and web services
+
+BEGIN
+    // ----------------------------------------
+    // GET - Retrieving data from a server
+    // ----------------------------------------
+
+    DISPLAY "=== GET Requests ==="
+
+    // Simple GET request
+    GET "https://api.example.com/users"
+    SET allUsers = response
+    DISPLAY "Retrieved all users"
+
+    // GET specific resource by ID
+    GET "https://api.example.com/users/123"
+    SET userDetails = response
+    DISPLAY "User name: " + userDetails.name
+    DISPLAY "User email: " + userDetails.email
+
+    // GET with query parameters
+    GET "https://api.example.com/products?category=electronics&limit=10"
+    SET products = response
+    DISPLAY "Retrieved " + products.count + " products"
+
+    // GET weather data (common API example)
+    GET "https://api.weather.com/current?city=NewYork"
+    SET weather = response
+    DISPLAY "Temperature: " + weather.temperature + "°F"
+    DISPLAY "Conditions: " + weather.conditions
+    DISPLAY ""
+
+    // ----------------------------------------
+    // POST - Sending data to a server
+    // ----------------------------------------
+
+    DISPLAY "=== POST Requests ==="
+
+    // Create new user
+    SET newUser = {
+        name: "Alice Smith",
+        email: "alice@example.com",
+        age: 25
+    }
+    POST newUser TO "https://api.example.com/users"
+    DISPLAY "New user created with ID: " + response.id
+
+    // Submit form data
+    SET formData = {
+        username: "alice123",
+        password: "securePass",
+        rememberMe: true
+    }
+    POST formData TO "https://api.example.com/login"
+
+    IF response.success THEN
+        DISPLAY "Login successful!"
+        SET authToken = response.token
+    ELSE
+        DISPLAY "Login failed: " + response.error
+    ENDIF
+
+    // Post order data
+    SET orderData = {
+        productId: 456,
+        quantity: 2,
+        shippingAddress: "123 Main St"
+    }
+    POST orderData TO "https://api.example.com/orders"
+    DISPLAY "Order placed: " + response.orderId
+    DISPLAY ""
+
+    // ----------------------------------------
+    // FETCH - General web requests
+    // ----------------------------------------
+
+    DISPLAY "=== FETCH Requests ==="
+
+    // Fetch data (generic retrieval)
+    FETCH "https://api.github.com/users/octocat"
+    SET githubUser = response
+    DISPLAY "GitHub user: " + githubUser.login
+    DISPLAY "Followers: " + githubUser.followers
+
+    // Fetch JSON data
+    FETCH "https://api.example.com/config.json"
+    SET config = response
+    DISPLAY "App version: " + config.version
+
+    // Fetch with error handling
+    FETCH "https://api.example.com/data"
+
+    IF response.status = 200 THEN
+        DISPLAY "Data retrieved successfully"
+        SET data = response.body
+    ELSEIF response.status = 404 THEN
+        DISPLAY "Data not found"
+    ELSE
+        DISPLAY "Error: " + response.status
+    ENDIF
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical Example: Weather App
+    // ----------------------------------------
+
+    DISPLAY "=== Weather App Example ==="
+
+    DISPLAY "Enter city name:"
+    INPUT cityName
+
+    // Fetch weather for entered city
+    FETCH "https://api.weather.com/forecast?city=" + cityName
+    SET forecast = response
+
+    IF forecast.success THEN
+        DISPLAY "Weather for " + cityName + ":"
+        DISPLAY "  Temperature: " + forecast.temp + "°F"
+        DISPLAY "  Humidity: " + forecast.humidity + "%"
+        DISPLAY "  Wind: " + forecast.windSpeed + " mph"
+        DISPLAY "  Conditions: " + forecast.description
+    ELSE
+        DISPLAY "Could not get weather for " + cityName
+    ENDIF
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical Example: User Registration
+    // ----------------------------------------
+
+    DISPLAY "=== User Registration ==="
+
+    DISPLAY "Enter your name:"
+    INPUT userName
+
+    DISPLAY "Enter your email:"
+    INPUT userEmail
+
+    DISPLAY "Enter a password:"
+    INPUT userPassword
+
+    // Create registration data
+    SET registrationData = {
+        name: userName,
+        email: userEmail,
+        password: userPassword
+    }
+
+    // Send to server
+    POST registrationData TO "https://api.example.com/register"
+
+    IF response.success THEN
+        DISPLAY "Registration successful!"
+        DISPLAY "Welcome, " + userName + "!"
+        DISPLAY "A confirmation email has been sent to " + userEmail
+    ELSE
+        DISPLAY "Registration failed: " + response.error
+    ENDIF
+    DISPLAY ""
+
+    // ----------------------------------------
+    // API Response Handling
+    // ----------------------------------------
+
+    DISPLAY "=== Handling API Responses ==="
+
+    // Common response patterns
+    GET "https://api.example.com/status"
+
+    // Check HTTP status codes
+    IF response.statusCode = 200 THEN
+        DISPLAY "Success!"
+    ELSEIF response.statusCode = 201 THEN
+        DISPLAY "Created successfully"
+    ELSEIF response.statusCode = 400 THEN
+        DISPLAY "Bad request"
+    ELSEIF response.statusCode = 401 THEN
+        DISPLAY "Unauthorized - please login"
+    ELSEIF response.statusCode = 404 THEN
+        DISPLAY "Not found"
+    ELSEIF response.statusCode = 500 THEN
+        DISPLAY "Server error"
+    ENDIF
+
+    DISPLAY ""
+    DISPLAY "Web operations complete!"
+END

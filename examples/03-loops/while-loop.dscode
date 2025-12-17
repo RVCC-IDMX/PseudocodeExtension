@@ -1,0 +1,70 @@
+// ================================================
+// Topic: WHILE Loop
+// File: while-loop.dscode
+// ================================================
+// Learning objectives:
+// - WHILE/ENDWHILE structure
+// - Loop counters
+// - Pre-test behavior (condition checked first)
+// ================================================
+
+// WHILE loop (pre-tested)
+// Checks condition BEFORE each iteration
+// May execute zero times if condition is false initially
+
+BEGIN
+    // Example 1: Simple counter
+    SET counter = 1
+
+    WHILE counter <= 5
+        DISPLAY "Count: " + counter
+        SET counter = counter + 1
+    ENDWHILE
+
+    DISPLAY "Loop complete!"
+
+    // Example 2: Sum of numbers
+    SET total = 0
+    SET number = 1
+
+    WHILE number <= 10
+        SET total = total + number
+        SET number = number + 1
+    ENDWHILE
+
+    DISPLAY "Sum of 1 to 10 is: " + total
+
+    // Example 3: User input validation
+    SET userInput = 0
+
+    DISPLAY "Enter a number between 1 and 100:"
+    INPUT userInput
+
+    WHILE userInput < 1 OR userInput > 100
+        DISPLAY "Invalid! Please enter a number between 1 and 100:"
+        INPUT userInput
+    ENDWHILE
+
+    DISPLAY "You entered: " + userInput
+
+    // Example 4: Countdown
+    SET countdown = 10
+
+    DISPLAY "Launching in..."
+    WHILE countdown > 0
+        DISPLAY countdown
+        SET countdown = countdown - 1
+    ENDWHILE
+
+    DISPLAY "Liftoff!"
+
+    // Example 5: Loop that might not execute
+    SET value = 100
+
+    WHILE value < 10
+        // This will never run because 100 is not < 10
+        DISPLAY "This won't print"
+    ENDWHILE
+
+    DISPLAY "Skipped the loop entirely!"
+END

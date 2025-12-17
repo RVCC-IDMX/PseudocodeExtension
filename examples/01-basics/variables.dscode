@@ -1,0 +1,39 @@
+// ================================================
+// Topic: Variables
+// File: variables.dscode
+// ================================================
+// Learning objectives:
+// - SET keyword
+// - Different data types (string, integer, decimal, boolean)
+// - Variable naming conventions
+// ================================================
+
+// Working with variables
+// Variables store data for later use
+
+BEGIN
+    // String variables (text in quotes)
+    SET name = "Alice"
+    SET greeting = "Hello"
+
+    // Integer variables (whole numbers)
+    SET age = 17
+    SET score = 95
+
+    // Decimal variables (numbers with decimals)
+    SET gpa = 3.85
+    SET price = 19.99
+
+    // Boolean variables (true or false)
+    SET isEnrolled = true
+    SET hasGraduated = false
+
+    // Using variables together
+    SET fullGreeting = greeting + ", " + name + "!"
+
+    // Displaying variable values
+    DISPLAY "Student: " + name
+    DISPLAY "Age: " + age
+    DISPLAY "GPA: " + gpa
+    DISPLAY "Enrolled: " + isEnrolled
+END
