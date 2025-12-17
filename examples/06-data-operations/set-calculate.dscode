@@ -1,0 +1,145 @@
+// ================================================
+// Topic: SET and CALCULATE Operations
+// File: set-calculate.dscode
+// ================================================
+// Learning objectives:
+// - SET for assignment
+// - CALCULATE for computations
+// - String concatenation
+// ================================================
+
+// SET and CALCULATE operations
+// Working with data values
+
+BEGIN
+    // ----------------------------------------
+    // SET - Assigning values to variables
+    // ----------------------------------------
+
+    // Setting string values
+    SET firstName = "John"
+    SET lastName = "Smith"
+    SET fullName = firstName + " " + lastName
+
+    DISPLAY "Name: " + fullName
+
+    // Setting numeric values
+    SET age = 25
+    SET height = 5.9
+    SET weight = 175
+
+    DISPLAY "Age: " + age
+    DISPLAY "Height: " + height + " feet"
+    DISPLAY "Weight: " + weight + " lbs"
+    DISPLAY ""
+
+    // Setting boolean values
+    SET isActive = true
+    SET isAdmin = false
+
+    // Setting values from other variables
+    SET originalPrice = 100
+    SET currentPrice = originalPrice
+
+    // Updating values
+    SET counter = 0
+    SET counter = counter + 1
+    SET counter = counter + 1
+    DISPLAY "Counter: " + counter
+    DISPLAY ""
+
+    // ----------------------------------------
+    // CALCULATE - Mathematical computations
+    // ----------------------------------------
+
+    // Basic calculations
+    SET price = 100
+    SET quantity = 5
+
+    CALCULATE subtotal = price * quantity
+    DISPLAY "Subtotal: $" + subtotal
+
+    // Tax calculation
+    SET taxRate = 0.08
+    CALCULATE tax = subtotal * taxRate
+    DISPLAY "Tax: $" + tax
+
+    // Total
+    CALCULATE total = subtotal + tax
+    DISPLAY "Total: $" + total
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Mathematical formulas
+    // ----------------------------------------
+
+    // Circle area: π * r²
+    SET radius = 5
+    SET pi = 3.14159
+    CALCULATE circleArea = pi * radius * radius
+    DISPLAY "Circle area (r=5): " + circleArea
+    DISPLAY ""
+
+    // Temperature conversion: F = (C × 9/5) + 32
+    SET celsius = 25
+    CALCULATE fahrenheit = (celsius * 9 / 5) + 32
+    DISPLAY celsius + "°C = " + fahrenheit + "°F"
+    DISPLAY ""
+
+    // Distance formula: d = speed × time
+    SET speed = 60
+    SET time = 2.5
+    CALCULATE distance = speed * time
+    DISPLAY "Distance: " + distance + " miles"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Financial calculations
+    // ----------------------------------------
+
+    DISPLAY "=== Financial Calculations ==="
+
+    // Simple interest: I = P × R × T
+    SET principal = 1000
+    SET rate = 0.05
+    SET years = 3
+    CALCULATE interest = principal * rate * years
+    CALCULATE finalAmount = principal + interest
+
+    DISPLAY "Principal: $" + principal
+    DISPLAY "Rate: " + (rate * 100) + "%"
+    DISPLAY "Years: " + years
+    DISPLAY "Interest: $" + interest
+    DISPLAY "Final Amount: $" + finalAmount
+    DISPLAY ""
+
+    // Percentage discount
+    SET originalCost = 80
+    SET discountPercent = 25
+    CALCULATE discountAmount = originalCost * (discountPercent / 100)
+    CALCULATE salePrice = originalCost - discountAmount
+
+    DISPLAY "Original: $" + originalCost
+    DISPLAY "Discount: " + discountPercent + "% ($" + discountAmount + ")"
+    DISPLAY "Sale Price: $" + salePrice
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Statistics calculations
+    // ----------------------------------------
+
+    DISPLAY "=== Test Score Statistics ==="
+
+    SET score1 = 85
+    SET score2 = 90
+    SET score3 = 78
+    SET score4 = 92
+    SET score5 = 88
+
+    CALCULATE sum = score1 + score2 + score3 + score4 + score5
+    CALCULATE average = sum / 5
+
+    DISPLAY "Scores: " + score1 + ", " + score2 + ", " + score3 + ", " + score4 + ", " + score5
+    DISPLAY "Sum: " + sum
+    DISPLAY "Average: " + average
+END

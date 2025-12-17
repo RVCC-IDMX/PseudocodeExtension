@@ -1,0 +1,46 @@
+// ================================================
+// Topic: IF-ELSE Statement
+// File: if-else.dscode
+// ================================================
+// Learning objectives:
+// - ELSE keyword
+// - Binary decisions (two paths)
+// ================================================
+
+// IF-ELSE statement
+// Choose between two paths
+
+BEGIN
+    DISPLAY "Enter your score:"
+    INPUT score
+
+    // Either pass OR fail - one must happen
+    IF score >= 50 THEN
+        DISPLAY "Pass"
+        DISPLAY "Congratulations!"
+    ELSE
+        DISPLAY "Fail"
+        DISPLAY "Please try again"
+    ENDIF
+
+    // Another example: even or odd
+    DISPLAY "Enter a number:"
+    INPUT number
+
+    SET remainder = number - (number / 2) * 2
+
+    IF remainder = 0 THEN
+        DISPLAY number + " is even"
+    ELSE
+        DISPLAY number + " is odd"
+    ENDIF
+
+    // Temperature check
+    SET temperature = 25
+
+    IF temperature > 30 THEN
+        DISPLAY "It's hot outside"
+    ELSE
+        DISPLAY "Temperature is comfortable"
+    ENDIF
+END

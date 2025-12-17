@@ -1,0 +1,101 @@
+// ================================================
+// Topic: Input and Output
+// File: input-output.dscode
+// ================================================
+// Learning objectives:
+// - INPUT keyword
+// - OUTPUT, PRINT, DISPLAY keywords
+// - Prompting users
+// ================================================
+
+// Input and Output operations
+// Communicating with users
+
+BEGIN
+    // ----------------------------------------
+    // OUTPUT KEYWORDS
+    // DISPLAY, OUTPUT, and PRINT are similar
+    // ----------------------------------------
+
+    // DISPLAY - most common for showing information
+    DISPLAY "Welcome to the program!"
+    DISPLAY "This demonstrates I/O operations"
+    DISPLAY ""
+
+    // OUTPUT - often used for results
+    OUTPUT "Processing your request..."
+    OUTPUT "Operation complete"
+    DISPLAY ""
+
+    // PRINT - traditionally for printing to screen
+    PRINT "This is printed text"
+    PRINT "Another printed line"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // INPUT KEYWORD
+    // Getting data from the user
+    // ----------------------------------------
+
+    // Basic input with prompt
+    DISPLAY "What is your name?"
+    INPUT userName
+
+    DISPLAY "Hello, " + userName + "!"
+    DISPLAY ""
+
+    // Getting a number
+    DISPLAY "Enter your age:"
+    INPUT userAge
+
+    DISPLAY "You are " + userAge + " years old"
+    DISPLAY ""
+
+    // Multiple inputs
+    DISPLAY "Enter your first name:"
+    INPUT firstName
+
+    DISPLAY "Enter your last name:"
+    INPUT lastName
+
+    SET fullName = firstName + " " + lastName
+    DISPLAY "Your full name is: " + fullName
+    DISPLAY ""
+
+    // Using input in calculations
+    DISPLAY "Enter the width of a rectangle:"
+    INPUT width
+
+    DISPLAY "Enter the height of a rectangle:"
+    INPUT height
+
+    SET area = width * height
+    SET perimeter = 2 * (width + height)
+
+    OUTPUT "Rectangle Calculations:"
+    OUTPUT "  Area: " + area
+    OUTPUT "  Perimeter: " + perimeter
+    DISPLAY ""
+
+    // Input with validation loop
+    SET validInput = false
+
+    WHILE validInput = false
+        DISPLAY "Enter a number between 1 and 10:"
+        INPUT number
+
+        IF number >= 1 AND number <= 10 THEN
+            SET validInput = true
+            DISPLAY "Valid input: " + number
+        ELSE
+            DISPLAY "Invalid! Try again."
+        ENDIF
+    ENDWHILE
+
+    // Summary
+    DISPLAY ""
+    PRINT "=== Session Summary ==="
+    PRINT "User: " + fullName
+    PRINT "Age: " + userAge
+    OUTPUT "Thank you for using this program!"
+END

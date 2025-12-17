@@ -1,0 +1,330 @@
+// ================================================
+// COMPREHENSIVE SYNTAX TEST FILE
+// File: test-complete.dscode
+// ================================================
+// Purpose: Test ALL syntax highlighting features
+// This file contains every keyword and syntax
+// element supported by the extension.
+// ================================================
+
+/* ================================================
+   BLOCK COMMENT TEST
+   This is a multi-line block comment
+   that should be highlighted as a comment
+   ================================================ */
+
+// ----------------------------------------
+// SECTION 1: CONTROL FLOW KEYWORDS
+// ----------------------------------------
+
+BEGIN
+    // Test all control flow keywords
+END
+
+IF condition THEN
+    // IF block
+ENDIF
+
+IF condition THEN
+    // True branch
+ELSE
+    // False branch
+ENDIF
+
+IF condition1 THEN
+    // First condition
+ELSEIF condition2 THEN
+    // Second condition
+ELSE
+    // Default
+ENDIF
+
+// ----------------------------------------
+// SECTION 2: LOOP KEYWORDS
+// ----------------------------------------
+
+FOR i = 1 TO 10 STEP 1
+    // FOR loop content
+NEXT i
+
+// Alternative FOR terminator
+FOR j = 1 TO 5 STEP 2
+    // Loop body
+ENDFOR
+
+// Another FOR terminator
+FOR k = 10 TO 1 STEP -1
+    // Loop body
+END FOR
+
+WHILE condition
+    // WHILE loop content
+ENDWHILE
+
+REPEAT
+    // REPEAT loop content
+UNTIL condition
+
+// ----------------------------------------
+// SECTION 3: FUNCTION KEYWORDS
+// ----------------------------------------
+
+FUNCTION myFunction ()
+BEGIN
+    // Function body
+END
+
+FUNCTION functionWithParams (param1, param2)
+BEGIN
+    RETURN result
+END FUNCTION
+
+// Function calls
+CALL myFunction()
+CALL functionWithParams(arg1, arg2)
+
+// Exit function early
+EXIT
+
+// ----------------------------------------
+// SECTION 4: I/O KEYWORDS
+// ----------------------------------------
+
+INPUT userValue
+OUTPUT "Message to display"
+PRINT "Printed message"
+DISPLAY "Displayed message"
+
+READ data FROM "file.txt"
+WRITE data TO "file.txt"
+
+// ----------------------------------------
+// SECTION 5: DATA OPERATION KEYWORDS
+// ----------------------------------------
+
+SET variable = "value"
+SET number = 42
+SET decimal = 3.14159
+SET boolean = true
+
+CALCULATE result = 5 * 10
+CALCULATE area = width * height
+
+// ----------------------------------------
+// SECTION 6: WEB OPERATION KEYWORDS
+// ----------------------------------------
+
+GET "https://api.example.com/data"
+POST data TO "https://api.example.com/submit"
+FETCH "https://api.example.com/resource"
+
+// ----------------------------------------
+// SECTION 7: DATABASE KEYWORDS
+// ----------------------------------------
+
+SQL "SELECT * FROM table"
+QUERY "SELECT name FROM users WHERE id = 1"
+
+// ----------------------------------------
+// SECTION 8: LOGICAL OPERATORS
+// ----------------------------------------
+
+IF condition1 AND condition2 THEN
+    // Both true
+ENDIF
+
+IF condition1 OR condition2 THEN
+    // Either true
+ENDIF
+
+IF NOT condition THEN
+    // Negation
+ENDIF
+
+// Combined logical operators
+IF (a AND b) OR (c AND NOT d) THEN
+    // Complex condition
+ENDIF
+
+// ----------------------------------------
+// SECTION 9: CLASS KEYWORD
+// ----------------------------------------
+
+CLASS MyClass
+BEGIN
+    SET property = "value"
+
+    FUNCTION method ()
+    BEGIN
+        RETURN property
+    END
+END
+
+// ----------------------------------------
+// SECTION 10: EXECUTION KEYWORDS
+// ----------------------------------------
+
+RUN process
+EXECUTE command
+
+// ----------------------------------------
+// SECTION 11: STRING LITERALS
+// ----------------------------------------
+
+SET string1 = "Double quoted string"
+SET string2 = "String with \"escaped\" quotes"
+SET string3 = "String with \n newline"
+SET string4 = "String with \t tab"
+
+// Single quoted strings (if supported)
+SET string5 = 'Single quoted string'
+
+// Empty strings
+SET emptyString = ""
+
+// ----------------------------------------
+// SECTION 12: NUMERIC LITERALS
+// ----------------------------------------
+
+SET integer1 = 0
+SET integer2 = 42
+SET integer3 = -17
+SET integer4 = 1000000
+
+SET float1 = 0.0
+SET float2 = 3.14
+SET float3 = -2.5
+SET float4 = 0.001
+SET float5 = 123.456789
+
+// ----------------------------------------
+// SECTION 13: COMPARISON OPERATORS
+// ----------------------------------------
+
+IF a = b THEN
+    // Equal
+ENDIF
+
+IF a <> b THEN
+    // Not equal
+ENDIF
+
+IF a < b THEN
+    // Less than
+ENDIF
+
+IF a > b THEN
+    // Greater than
+ENDIF
+
+IF a <= b THEN
+    // Less than or equal
+ENDIF
+
+IF a >= b THEN
+    // Greater than or equal
+ENDIF
+
+// ----------------------------------------
+// SECTION 14: ARITHMETIC OPERATORS
+// ----------------------------------------
+
+SET sum = a + b
+SET difference = a - b
+SET product = a * b
+SET quotient = a / b
+
+// Complex expressions
+SET result = (a + b) * (c - d) / e
+
+// ----------------------------------------
+// SECTION 15: EDGE CASES
+// ----------------------------------------
+
+// Keywords inside strings (should NOT be highlighted as keywords)
+SET text1 = "This contains BEGIN and END in text"
+SET text2 = "IF THEN ELSE are just words here"
+SET text3 = "WHILE FOR FUNCTION as plain text"
+
+// Keywords as part of identifiers (should NOT be highlighted)
+SET BEGINTIME = "10:00"
+SET ENDPOINT = "/api/data"
+SET IFFY = true
+SET SETUP = "configuration"
+
+// Comment symbols in strings (should NOT create comments)
+SET comment1 = "This is not // a comment"
+SET comment2 = "This is not /* a comment */ either"
+
+// Numbers in various contexts
+SET id = 12345
+SET mixed = "ID: " + 12345
+SET calculation = 100 + 50 * 2
+
+// ----------------------------------------
+// SECTION 16: NESTED STRUCTURES
+// ----------------------------------------
+
+FUNCTION complexFunction (x, y)
+BEGIN
+    IF x > 0 THEN
+        WHILE y > 0
+            FOR i = 1 TO x STEP 1
+                IF i = y THEN
+                    RETURN i * y
+                ENDIF
+            NEXT i
+            SET y = y - 1
+        ENDWHILE
+    ELSE
+        REPEAT
+            SET x = x + 1
+        UNTIL x > 0
+    ENDIF
+    RETURN 0
+END
+
+// ----------------------------------------
+// SECTION 17: ALL KEYWORDS REFERENCE LIST
+// ----------------------------------------
+
+/*
+CONTROL FLOW:
+- BEGIN, END
+- IF, THEN, ELSEIF, ELSE, ENDIF
+
+LOOPS:
+- FOR, TO, STEP, NEXT, ENDFOR, END FOR
+- WHILE, ENDWHILE
+- REPEAT, UNTIL
+
+FUNCTIONS:
+- FUNCTION, RETURN, END FUNCTION
+- CALL, EXIT
+
+I/O:
+- INPUT, OUTPUT, PRINT, DISPLAY
+- READ, WRITE
+
+DATA:
+- SET, CALCULATE
+- SQL, QUERY
+
+WEB:
+- GET, POST, FETCH
+
+CLASS:
+- CLASS
+
+LOGICAL:
+- AND, OR, NOT
+
+EXECUTION:
+- RUN, EXECUTE
+
+TOTAL: 35+ keywords
+*/
+
+// ================================================
+// END OF SYNTAX TEST FILE
+// ================================================

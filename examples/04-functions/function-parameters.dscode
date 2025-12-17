@@ -1,0 +1,107 @@
+// ================================================
+// Topic: Functions with Parameters
+// File: function-parameters.dscode
+// ================================================
+// Learning objectives:
+// - Parameters (inputs to functions)
+// - Multiple parameters
+// - Passing values to functions
+// ================================================
+
+// Functions with parameters
+// Pass data into functions
+
+// Single parameter
+FUNCTION greetByName (name)
+BEGIN
+    DISPLAY "Hello, " + name + "!"
+    DISPLAY "Nice to meet you"
+END
+
+// Two parameters
+FUNCTION addNumbers (a, b)
+BEGIN
+    SET result = a + b
+    DISPLAY a + " + " + b + " = " + result
+END
+
+// Multiple parameters
+FUNCTION showStudentInfo (name, age, grade)
+BEGIN
+    DISPLAY "Student Information:"
+    DISPLAY "  Name: " + name
+    DISPLAY "  Age: " + age
+    DISPLAY "  Grade: " + grade
+END
+
+// Function with calculation
+FUNCTION calculateRectangleArea (width, height)
+BEGIN
+    SET area = width * height
+    DISPLAY "Rectangle: " + width + " x " + height
+    DISPLAY "Area: " + area + " square units"
+END
+
+// Function that uses a loop with parameter
+FUNCTION countTo (limit)
+BEGIN
+    DISPLAY "Counting to " + limit + ":"
+    FOR i = 1 TO limit STEP 1
+        DISPLAY i
+    NEXT i
+    DISPLAY "Done counting!"
+END
+
+// Function with conditional logic
+FUNCTION checkAge (age)
+BEGIN
+    IF age >= 18 THEN
+        DISPLAY "You are an adult"
+    ELSE
+        DISPLAY "You are a minor"
+    ENDIF
+END
+
+// ================================================
+// Main program
+// ================================================
+
+BEGIN
+    // Call functions with different arguments
+    CALL greetByName("Alice")
+    DISPLAY ""
+
+    CALL greetByName("Bob")
+    DISPLAY ""
+
+    // Passing numbers
+    CALL addNumbers(5, 3)
+    CALL addNumbers(10, 20)
+    CALL addNumbers(100, 250)
+    DISPLAY ""
+
+    // Passing multiple values
+    CALL showStudentInfo("Charlie", 16, "10th")
+    DISPLAY ""
+
+    CALL showStudentInfo("Diana", 17, "11th")
+    DISPLAY ""
+
+    // Using variables as arguments
+    SET myWidth = 5
+    SET myHeight = 10
+    CALL calculateRectangleArea(myWidth, myHeight)
+    DISPLAY ""
+
+    // Direct values work too
+    CALL calculateRectangleArea(3, 7)
+    DISPLAY ""
+
+    // Function with loop
+    CALL countTo(5)
+    DISPLAY ""
+
+    // Function with condition
+    CALL checkAge(21)
+    CALL checkAge(15)
+END

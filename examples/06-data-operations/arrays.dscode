@@ -1,0 +1,172 @@
+// ================================================
+// Topic: Arrays
+// File: arrays.dscode
+// ================================================
+// Learning objectives:
+// - Array declaration
+// - Accessing array elements
+// - Looping through arrays
+// ================================================
+
+// Arrays
+// Storing multiple values in a single variable
+
+BEGIN
+    // ----------------------------------------
+    // Creating arrays
+    // ----------------------------------------
+
+    // Array of numbers
+    SET scores = [85, 90, 78, 92, 88]
+
+    // Array of strings
+    SET names = ["Alice", "Bob", "Charlie", "Diana"]
+
+    // Array of mixed types (in some pseudocode styles)
+    SET student = ["John", 17, "Grade 11", true]
+
+    // Empty array
+    SET emptyList = []
+
+    // ----------------------------------------
+    // Accessing array elements
+    // Arrays are typically 0-indexed or 1-indexed
+    // ----------------------------------------
+
+    // Using 1-based indexing (common in pseudocode)
+    DISPLAY "First score: " + scores[1]
+    DISPLAY "Second score: " + scores[2]
+    DISPLAY "Last score: " + scores[5]
+    DISPLAY ""
+
+    DISPLAY "First name: " + names[1]
+    DISPLAY "Third name: " + names[3]
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Modifying array elements
+    // ----------------------------------------
+
+    SET colors = ["red", "green", "blue"]
+    DISPLAY "Original: " + colors[2]
+
+    SET colors[2] = "yellow"
+    DISPLAY "Modified: " + colors[2]
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Array length
+    // ----------------------------------------
+
+    SET items = ["apple", "banana", "orange", "grape"]
+    SET itemCount = 4  // Length of the array
+
+    DISPLAY "Number of items: " + itemCount
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Looping through arrays
+    // ----------------------------------------
+
+    DISPLAY "All scores:"
+    FOR i = 1 TO 5 STEP 1
+        DISPLAY "  Score " + i + ": " + scores[i]
+    NEXT i
+    DISPLAY ""
+
+    DISPLAY "All names:"
+    FOR j = 1 TO 4 STEP 1
+        DISPLAY "  " + j + ". " + names[j]
+    NEXT j
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Array operations
+    // ----------------------------------------
+
+    // Calculate sum of array elements
+    SET numbers = [10, 20, 30, 40, 50]
+    SET total = 0
+
+    FOR k = 1 TO 5 STEP 1
+        SET total = total + numbers[k]
+    NEXT k
+
+    DISPLAY "Sum of numbers: " + total
+    DISPLAY "Average: " + (total / 5)
+    DISPLAY ""
+
+    // Find maximum value
+    SET values = [23, 45, 12, 67, 34]
+    SET maxValue = values[1]
+
+    FOR m = 2 TO 5 STEP 1
+        IF values[m] > maxValue THEN
+            SET maxValue = values[m]
+        ENDIF
+    NEXT m
+
+    DISPLAY "Maximum value: " + maxValue
+    DISPLAY ""
+
+    // Find minimum value
+    SET minValue = values[1]
+
+    FOR n = 2 TO 5 STEP 1
+        IF values[n] < minValue THEN
+            SET minValue = values[n]
+        ENDIF
+    NEXT n
+
+    DISPLAY "Minimum value: " + minValue
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Searching in arrays
+    // ----------------------------------------
+
+    SET fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+    SET searchFor = "cherry"
+    SET found = false
+    SET position = 0
+
+    FOR p = 1 TO 5 STEP 1
+        IF fruits[p] = searchFor THEN
+            SET found = true
+            SET position = p
+        ENDIF
+    NEXT p
+
+    IF found THEN
+        DISPLAY "Found '" + searchFor + "' at position " + position
+    ELSE
+        DISPLAY "'" + searchFor + "' not found"
+    ENDIF
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical example: Grade tracker
+    // ----------------------------------------
+
+    DISPLAY "=== Grade Tracker ==="
+
+    SET studentNames = ["Emma", "Liam", "Olivia", "Noah"]
+    SET studentGrades = [92, 85, 88, 79]
+
+    FOR s = 1 TO 4 STEP 1
+        SET grade = studentGrades[s]
+        SET letterGrade = ""
+
+        IF grade >= 90 THEN
+            SET letterGrade = "A"
+        ELSEIF grade >= 80 THEN
+            SET letterGrade = "B"
+        ELSEIF grade >= 70 THEN
+            SET letterGrade = "C"
+        ELSE
+            SET letterGrade = "D"
+        ENDIF
+
+        DISPLAY studentNames[s] + ": " + grade + " (" + letterGrade + ")"
+    NEXT s
+END

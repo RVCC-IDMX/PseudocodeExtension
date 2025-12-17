@@ -1,0 +1,69 @@
+// ================================================
+// Topic: FOR Loop
+// File: for-loop.dscode
+// ================================================
+// Learning objectives:
+// - FOR/TO/STEP/NEXT structure
+// - Loop variable
+// - Step increments (positive and negative)
+// ================================================
+
+// FOR loop
+// Repeats a specific number of times
+// Best when you know how many iterations needed
+
+BEGIN
+    // Example 1: Count from 1 to 10
+    DISPLAY "Counting 1 to 10:"
+    FOR i = 1 TO 10 STEP 1
+        DISPLAY i
+    NEXT i
+
+    // Example 2: Count by twos (even numbers)
+    DISPLAY "Even numbers from 0 to 20:"
+    FOR j = 0 TO 20 STEP 2
+        DISPLAY j
+    NEXT j
+
+    // Example 3: Count backwards
+    DISPLAY "Countdown from 10 to 1:"
+    FOR k = 10 TO 1 STEP -1
+        DISPLAY k
+    NEXT k
+    DISPLAY "Blast off!"
+
+    // Example 4: Count by fives
+    DISPLAY "Counting by 5s to 50:"
+    FOR num = 5 TO 50 STEP 5
+        DISPLAY num
+    NEXT num
+
+    // Example 5: Calculate factorial
+    SET number = 5
+    SET factorial = 1
+
+    FOR f = 1 TO number STEP 1
+        SET factorial = factorial * f
+    NEXT f
+
+    DISPLAY number + "! = " + factorial
+
+    // Example 6: Display a pattern
+    DISPLAY "Star pattern:"
+    FOR row = 1 TO 5 STEP 1
+        SET stars = ""
+        FOR col = 1 TO row STEP 1
+            SET stars = stars + "*"
+        NEXT col
+        DISPLAY stars
+    NEXT row
+
+    // Example 7: Sum of squares
+    SET sumSquares = 0
+    FOR n = 1 TO 5 STEP 1
+        SET square = n * n
+        SET sumSquares = sumSquares + square
+        DISPLAY n + " squared = " + square
+    NEXT n
+    DISPLAY "Sum of squares: " + sumSquares
+END

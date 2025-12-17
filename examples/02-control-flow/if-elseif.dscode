@@ -1,0 +1,57 @@
+// ================================================
+// Topic: IF-ELSEIF-ELSE Statement
+// File: if-elseif.dscode
+// ================================================
+// Learning objectives:
+// - ELSEIF for multiple branches
+// - Order of condition checking
+// ================================================
+
+// Multiple conditions with ELSEIF
+// Check several conditions in sequence
+
+BEGIN
+    DISPLAY "Enter your score (0-100):"
+    INPUT score
+
+    // Grade assignment using ELSEIF
+    // Conditions are checked in order - first match wins
+    IF score >= 90 THEN
+        DISPLAY "Grade: A"
+        DISPLAY "Excellent!"
+    ELSEIF score >= 80 THEN
+        DISPLAY "Grade: B"
+        DISPLAY "Good job!"
+    ELSEIF score >= 70 THEN
+        DISPLAY "Grade: C"
+        DISPLAY "Satisfactory"
+    ELSEIF score >= 60 THEN
+        DISPLAY "Grade: D"
+        DISPLAY "Needs improvement"
+    ELSE
+        DISPLAY "Grade: F"
+        DISPLAY "Please see instructor"
+    ENDIF
+
+    // Day of week example
+    DISPLAY "Enter day number (1-7):"
+    INPUT dayNumber
+
+    IF dayNumber = 1 THEN
+        DISPLAY "Monday"
+    ELSEIF dayNumber = 2 THEN
+        DISPLAY "Tuesday"
+    ELSEIF dayNumber = 3 THEN
+        DISPLAY "Wednesday"
+    ELSEIF dayNumber = 4 THEN
+        DISPLAY "Thursday"
+    ELSEIF dayNumber = 5 THEN
+        DISPLAY "Friday"
+    ELSEIF dayNumber = 6 THEN
+        DISPLAY "Saturday"
+    ELSEIF dayNumber = 7 THEN
+        DISPLAY "Sunday"
+    ELSE
+        DISPLAY "Invalid day number"
+    ENDIF
+END

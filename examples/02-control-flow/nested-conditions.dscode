@@ -1,0 +1,86 @@
+// ================================================
+// Topic: Nested Conditions
+// File: nested-conditions.dscode
+// ================================================
+// Learning objectives:
+// - Nesting control structures
+// - Proper indentation
+// - Complex logic flow
+// ================================================
+
+// Nested IF statements
+// Conditions inside conditions
+
+BEGIN
+    // Example 1: Event admission
+    DISPLAY "Enter your age:"
+    INPUT age
+
+    DISPLAY "Do you have a ticket? (yes/no):"
+    INPUT hasTicketResponse
+    SET hasTicket = (hasTicketResponse = "yes")
+
+    IF age >= 18 THEN
+        IF hasTicket = true THEN
+            DISPLAY "Welcome to the event!"
+            DISPLAY "Enjoy the show"
+        ELSE
+            DISPLAY "Please purchase a ticket at the counter"
+            DISPLAY "Tickets are $25"
+        ENDIF
+    ELSE
+        DISPLAY "Sorry, must be 18 or older"
+        DISPLAY "This is an adult-only event"
+    ENDIF
+
+    // Example 2: Login system
+    DISPLAY "Enter username:"
+    INPUT username
+
+    DISPLAY "Enter password:"
+    INPUT password
+
+    IF username = "admin" THEN
+        IF password = "secret123" THEN
+            DISPLAY "Login successful!"
+            DISPLAY "Welcome, Administrator"
+
+            // Even deeper nesting
+            DISPLAY "Enable two-factor auth? (yes/no):"
+            INPUT twoFactor
+
+            IF twoFactor = "yes" THEN
+                DISPLAY "Two-factor authentication enabled"
+            ELSE
+                DISPLAY "Continuing without 2FA"
+            ENDIF
+        ELSE
+            DISPLAY "Incorrect password"
+        ENDIF
+    ELSE
+        DISPLAY "Username not found"
+    ENDIF
+
+    // Example 3: Multiple levels of nesting
+    SET category = "electronics"
+    SET price = 500
+    SET memberStatus = "gold"
+
+    IF category = "electronics" THEN
+        IF price > 100 THEN
+            IF memberStatus = "gold" THEN
+                DISPLAY "20% discount applied!"
+                SET finalPrice = price * 0.80
+            ELSEIF memberStatus = "silver" THEN
+                DISPLAY "10% discount applied!"
+                SET finalPrice = price * 0.90
+            ELSE
+                DISPLAY "5% discount applied!"
+                SET finalPrice = price * 0.95
+            ENDIF
+            DISPLAY "Final price: $" + finalPrice
+        ELSE
+            DISPLAY "No discount for items under $100"
+        ENDIF
+    ENDIF
+END

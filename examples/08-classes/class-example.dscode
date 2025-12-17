@@ -1,0 +1,259 @@
+// ================================================
+// Topic: Classes
+// File: class-example.dscode
+// ================================================
+// Learning objectives:
+// - CLASS keyword
+// - Properties and methods
+// - Object instantiation
+// ================================================
+
+// CLASS definition
+// Object-oriented pseudocode
+
+// ----------------------------------------
+// Basic Class Definition
+// ----------------------------------------
+
+CLASS Student
+BEGIN
+    // Properties (data the class stores)
+    SET name = ""
+    SET age = 0
+    SET studentId = ""
+    SET grades = []
+    SET isEnrolled = true
+
+    // Method to set student name
+    FUNCTION setName (newName)
+    BEGIN
+        SET name = newName
+    END
+
+    // Method to get student name
+    FUNCTION getName ()
+    BEGIN
+        RETURN name
+    END
+
+    // Method to add a grade
+    FUNCTION addGrade (grade)
+    BEGIN
+        // Add grade to the grades array
+        SET grades = grades + [grade]
+        DISPLAY "Grade " + grade + " added for " + name
+    END
+
+    // Method to calculate average
+    FUNCTION calculateAverage ()
+    BEGIN
+        SET total = 0
+        SET count = 0
+
+        FOR i = 1 TO 10 STEP 1
+            IF grades[i] <> null THEN
+                SET total = total + grades[i]
+                SET count = count + 1
+            ENDIF
+        NEXT i
+
+        IF count > 0 THEN
+            RETURN total / count
+        ELSE
+            RETURN 0
+        ENDIF
+    END
+
+    // Method to display student info
+    FUNCTION displayInfo ()
+    BEGIN
+        DISPLAY "=== Student Information ==="
+        DISPLAY "Name: " + name
+        DISPLAY "Age: " + age
+        DISPLAY "ID: " + studentId
+        DISPLAY "Enrolled: " + isEnrolled
+        DISPLAY "Average Grade: " + CALL calculateAverage()
+    END
+END
+
+// ----------------------------------------
+// Another Class Example
+// ----------------------------------------
+
+CLASS BankAccount
+BEGIN
+    SET accountNumber = ""
+    SET ownerName = ""
+    SET balance = 0
+    SET accountType = "checking"
+
+    // Constructor-like method
+    FUNCTION initialize (number, owner, initialBalance)
+    BEGIN
+        SET accountNumber = number
+        SET ownerName = owner
+        SET balance = initialBalance
+    END
+
+    // Deposit money
+    FUNCTION deposit (amount)
+    BEGIN
+        IF amount > 0 THEN
+            SET balance = balance + amount
+            DISPLAY "Deposited $" + amount
+            DISPLAY "New balance: $" + balance
+            RETURN true
+        ELSE
+            DISPLAY "Invalid deposit amount"
+            RETURN false
+        ENDIF
+    END
+
+    // Withdraw money
+    FUNCTION withdraw (amount)
+    BEGIN
+        IF amount > 0 AND amount <= balance THEN
+            SET balance = balance - amount
+            DISPLAY "Withdrew $" + amount
+            DISPLAY "New balance: $" + balance
+            RETURN true
+        ELSE
+            DISPLAY "Insufficient funds or invalid amount"
+            RETURN false
+        ENDIF
+    END
+
+    // Check balance
+    FUNCTION getBalance ()
+    BEGIN
+        RETURN balance
+    END
+
+    // Display account details
+    FUNCTION displayAccount ()
+    BEGIN
+        DISPLAY "========================"
+        DISPLAY "Account: " + accountNumber
+        DISPLAY "Owner: " + ownerName
+        DISPLAY "Type: " + accountType
+        DISPLAY "Balance: $" + balance
+        DISPLAY "========================"
+    END
+END
+
+// ----------------------------------------
+// Class with relationships
+// ----------------------------------------
+
+CLASS Course
+BEGIN
+    SET courseId = ""
+    SET courseName = ""
+    SET instructor = ""
+    SET maxStudents = 30
+    SET enrolledStudents = []
+    SET studentCount = 0
+
+    FUNCTION setCourseInfo (id, name, teacher)
+    BEGIN
+        SET courseId = id
+        SET courseName = name
+        SET instructor = teacher
+    END
+
+    FUNCTION enrollStudent (studentName)
+    BEGIN
+        IF studentCount < maxStudents THEN
+            SET enrolledStudents = enrolledStudents + [studentName]
+            SET studentCount = studentCount + 1
+            DISPLAY studentName + " enrolled in " + courseName
+            RETURN true
+        ELSE
+            DISPLAY "Course is full"
+            RETURN false
+        ENDIF
+    END
+
+    FUNCTION displayRoster ()
+    BEGIN
+        DISPLAY "=== " + courseName + " Roster ==="
+        DISPLAY "Instructor: " + instructor
+        DISPLAY "Enrolled: " + studentCount + "/" + maxStudents
+        DISPLAY "Students:"
+        FOR i = 1 TO studentCount STEP 1
+            DISPLAY "  " + i + ". " + enrolledStudents[i]
+        NEXT i
+    END
+END
+
+// ----------------------------------------
+// Main Program - Using the classes
+// ----------------------------------------
+
+BEGIN
+    DISPLAY "================================"
+    DISPLAY "  OBJECT-ORIENTED PSEUDOCODE"
+    DISPLAY "================================"
+    DISPLAY ""
+
+    // Create Student objects
+    DISPLAY "--- Creating Students ---"
+
+    SET student1 = new Student()
+    CALL student1.setName("Alice Johnson")
+    SET student1.age = 17
+    SET student1.studentId = "STU001"
+
+    SET student2 = new Student()
+    CALL student2.setName("Bob Smith")
+    SET student2.age = 16
+    SET student2.studentId = "STU002"
+
+    // Add grades
+    CALL student1.addGrade(92)
+    CALL student1.addGrade(88)
+    CALL student1.addGrade(95)
+
+    CALL student2.addGrade(78)
+    CALL student2.addGrade(82)
+    CALL student2.addGrade(80)
+
+    // Display student info
+    DISPLAY ""
+    CALL student1.displayInfo()
+    DISPLAY ""
+    CALL student2.displayInfo()
+    DISPLAY ""
+
+    // Create and use BankAccount
+    DISPLAY "--- Bank Account Demo ---"
+
+    SET myAccount = new BankAccount()
+    CALL myAccount.initialize("123456789", "Alice Johnson", 1000)
+
+    CALL myAccount.displayAccount()
+
+    CALL myAccount.deposit(500)
+    CALL myAccount.withdraw(200)
+    CALL myAccount.withdraw(2000)  // Should fail
+
+    DISPLAY ""
+    CALL myAccount.displayAccount()
+    DISPLAY ""
+
+    // Create and use Course
+    DISPLAY "--- Course Enrollment Demo ---"
+
+    SET mathCourse = new Course()
+    CALL mathCourse.setCourseInfo("MATH101", "Introduction to Algebra", "Dr. Wilson")
+
+    CALL mathCourse.enrollStudent("Alice Johnson")
+    CALL mathCourse.enrollStudent("Bob Smith")
+    CALL mathCourse.enrollStudent("Charlie Brown")
+
+    DISPLAY ""
+    CALL mathCourse.displayRoster()
+
+    DISPLAY ""
+    DISPLAY "Object-oriented demonstration complete!"
+END

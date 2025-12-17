@@ -1,0 +1,144 @@
+// ================================================
+// Topic: Display and Print Operations
+// File: display-print.dscode
+// ================================================
+// Learning objectives:
+// - Different output keywords
+// - Formatting output
+// - Building user interfaces in text
+// ================================================
+
+// Display and Print operations
+// Various ways to show output to users
+
+BEGIN
+    // ----------------------------------------
+    // Basic Output Commands
+    // ----------------------------------------
+
+    DISPLAY "Using DISPLAY keyword"
+    OUTPUT "Using OUTPUT keyword"
+    PRINT "Using PRINT keyword"
+    DISPLAY ""
+
+    // All three work similarly for basic output
+    // Use whichever is clearest for your context
+
+    // ----------------------------------------
+    // Displaying Variables
+    // ----------------------------------------
+
+    SET name = "Alice"
+    SET score = 95
+    SET grade = "A"
+
+    DISPLAY "Name: " + name
+    DISPLAY "Score: " + score
+    DISPLAY "Grade: " + grade
+    DISPLAY ""
+
+    // ----------------------------------------
+    // String Concatenation in Output
+    // ----------------------------------------
+
+    // Combining text and variables
+    DISPLAY "Student " + name + " scored " + score + " points"
+
+    // Building complex output strings
+    SET firstName = "Bob"
+    SET lastName = "Smith"
+    SET message = "Hello, " + firstName + " " + lastName + "!"
+    DISPLAY message
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Formatting Output
+    // ----------------------------------------
+
+    // Creating headers
+    DISPLAY "==============================="
+    DISPLAY "       STUDENT REPORT"
+    DISPLAY "==============================="
+    DISPLAY ""
+
+    // Creating a simple table
+    DISPLAY "Name        | Score | Grade"
+    DISPLAY "------------|-------|------"
+    DISPLAY "Alice       |  95   |  A"
+    DISPLAY "Bob         |  82   |  B"
+    DISPLAY "Charlie     |  78   |  C"
+    DISPLAY ""
+
+    // Using separator lines
+    DISPLAY "----------------------------"
+
+    // ----------------------------------------
+    // Creating Menus
+    // ----------------------------------------
+
+    DISPLAY ""
+    DISPLAY "╔════════════════════════════╗"
+    DISPLAY "║       MAIN MENU            ║"
+    DISPLAY "╠════════════════════════════╣"
+    DISPLAY "║  1. New Game               ║"
+    DISPLAY "║  2. Load Game              ║"
+    DISPLAY "║  3. Options                ║"
+    DISPLAY "║  4. Exit                   ║"
+    DISPLAY "╚════════════════════════════╝"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Progress Indicators
+    // ----------------------------------------
+
+    DISPLAY "Processing..."
+    OUTPUT "Step 1 of 3: Loading data"
+    OUTPUT "Step 2 of 3: Calculating"
+    OUTPUT "Step 3 of 3: Saving results"
+    PRINT "Complete!"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Error and Status Messages
+    // ----------------------------------------
+
+    // Success message
+    DISPLAY "[SUCCESS] File saved successfully"
+
+    // Warning message
+    DISPLAY "[WARNING] Disk space is low"
+
+    // Error message
+    DISPLAY "[ERROR] File not found"
+
+    // Info message
+    DISPLAY "[INFO] Processing 100 records"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical Example: Receipt
+    // ----------------------------------------
+
+    SET item1 = "Coffee"
+    SET price1 = 4.50
+    SET item2 = "Sandwich"
+    SET price2 = 8.99
+    SET total = price1 + price2
+    SET tax = total * 0.08
+    SET grandTotal = total + tax
+
+    DISPLAY ""
+    DISPLAY "================================"
+    DISPLAY "         CAFE RECEIPT"
+    DISPLAY "================================"
+    DISPLAY item1 + "              $" + price1
+    DISPLAY item2 + "           $" + price2
+    DISPLAY "--------------------------------"
+    DISPLAY "Subtotal:          $" + total
+    DISPLAY "Tax (8%):          $" + tax
+    DISPLAY "================================"
+    DISPLAY "TOTAL:             $" + grandTotal
+    DISPLAY "================================"
+    DISPLAY "       Thank you!"
+    DISPLAY ""
+END

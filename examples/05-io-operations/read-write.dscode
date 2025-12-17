@@ -1,0 +1,119 @@
+// ================================================
+// Topic: Read and Write Operations
+// File: read-write.dscode
+// ================================================
+// Learning objectives:
+// - READ keyword
+// - WRITE keyword
+// - File concepts
+// ================================================
+
+// Reading and writing data
+// Working with files or data stores
+
+BEGIN
+    // ----------------------------------------
+    // READ - Getting data from files/storage
+    // ----------------------------------------
+
+    // Read a single value from a file
+    READ studentName FROM "students.txt"
+    DISPLAY "Read student name: " + studentName
+
+    // Read multiple values
+    READ studentAge FROM "students.txt"
+    READ studentGrade FROM "students.txt"
+
+    DISPLAY "Student: " + studentName
+    DISPLAY "Age: " + studentAge
+    DISPLAY "Grade: " + studentGrade
+    DISPLAY ""
+
+    // Read from different file types
+    READ configValue FROM "config.ini"
+    READ jsonData FROM "data.json"
+    READ csvRow FROM "records.csv"
+
+    // Read with descriptive variable names
+    READ username FROM "user_credentials.txt"
+    READ highScore FROM "game_scores.txt"
+    READ lastLogin FROM "session.log"
+
+    DISPLAY "Config: " + configValue
+    DISPLAY "High Score: " + highScore
+    DISPLAY ""
+
+    // ----------------------------------------
+    // WRITE - Saving data to files/storage
+    // ----------------------------------------
+
+    // Write a simple message
+    WRITE "New log entry" TO "log.txt"
+    DISPLAY "Log entry written"
+
+    // Write data from variables
+    SET newRecord = "John,25,A"
+    WRITE newRecord TO "students.csv"
+    DISPLAY "Student record saved"
+
+    // Write calculated results
+    SET total = 150
+    SET average = total / 3
+    WRITE "Total: " + total TO "results.txt"
+    WRITE "Average: " + average TO "results.txt"
+    DISPLAY "Results saved"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical Example: Simple Data Entry
+    // ----------------------------------------
+
+    DISPLAY "=== Student Data Entry ==="
+    DISPLAY ""
+
+    // Get input from user
+    DISPLAY "Enter student name:"
+    INPUT newStudentName
+
+    DISPLAY "Enter student score:"
+    INPUT newStudentScore
+
+    // Create formatted record
+    SET record = newStudentName + "," + newStudentScore
+
+    // Save to file
+    WRITE record TO "class_scores.csv"
+    DISPLAY "Record saved: " + record
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Practical Example: Report Generation
+    // ----------------------------------------
+
+    DISPLAY "=== Generating Report ==="
+
+    // Read existing data
+    READ totalStudents FROM "statistics.txt"
+    READ classAverage FROM "statistics.txt"
+
+    // Write report
+    WRITE "=== Class Report ===" TO "report.txt"
+    WRITE "Total Students: " + totalStudents TO "report.txt"
+    WRITE "Class Average: " + classAverage TO "report.txt"
+    WRITE "Report generated on: today" TO "report.txt"
+
+    DISPLAY "Report saved to report.txt"
+    DISPLAY ""
+
+    // ----------------------------------------
+    // Error handling concept
+    // ----------------------------------------
+
+    // In real programs, you would check if file exists
+    // READ data FROM "file.txt"
+    // IF data = "" THEN
+    //     DISPLAY "Error: File not found or empty"
+    // ENDIF
+
+    DISPLAY "File operations complete!"
+END
