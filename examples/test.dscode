@@ -1,16 +1,45 @@
-FUNCTION test ()
-BEGIN
-    IF there is THEN
-        
-    ENDIF
-END 
+// Quick syntax test file
+// Tests basic features work correctly
 
-//comment
+/* Block comment test */
 
-class.static 
-FUNCTION test (nothing)
 BEGIN
-    IF x<5 THEN
-        
+    // Control flow
+    SET name = "test"
+    SET count = 42
+    SET price = 19.99
+
+    IF count > 0 THEN
+        OUTPUT "Count is positive"
+    ELSEIF count < 0 THEN
+        OUTPUT "Count is negative"
+    ELSE
+        OUTPUT "Count is zero"
     ENDIF
+
+    // Loops
+    FOR i = 1 TO 10 STEP 1
+        DISPLAY i
+    NEXT i
+
+    WHILE count > 0
+        SET count = count - 1
+    ENDWHILE
+
+    // Operators test
+    SET result = 10 + 5 - 3 * 2 / 1
+    IF result >= 10 AND result <= 20 THEN
+        PRINT "In range"
+    ENDIF
+
+    // Single quoted string
+    SET message = 'Hello World'
 END
+
+// Function test
+FUNCTION add (a, b)
+BEGIN
+    RETURN a + b
+END
+
+CALL add(5, 10)
